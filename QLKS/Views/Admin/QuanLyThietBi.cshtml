@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "QuanLyThietBi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using QLKS.Models
+@model List<THIETBI>
+
+<div class="row mt-2">
+    <h2 class="text-center" style="font-weight: bold">DANH SÁCH THIẾT BỊ TẠI KHÁCH SẠN</h2>
+    <br />
+    <div class="col-2">
+        <a href="/Admin/taoMoi" class="btn btn-dark">Thêm thiết bị</a>
+    </div>
+    <div class="col-6">
+
+    </div>
+    <div class="col-4 d-flex">
+        <form action="~/Admin/QuanLyThietBi" class="search" method="post">
+            <label>
+                <input type="search" class="form-control" name="search" aria-label="Search" aria-describedby="search-addon" placeholder="Tìm kiếm ...">
+            </label>
+        </form>
+    </div>
+</div>
+<div class="row mt-5">
+    @foreach (var item in Model)
+    {<div class="col-3 text-center">
+        <p>
+            <a href="~/Admin/ChiTietThietBi/@item.MATHIETBI">
+                <img src="~/images/ThietBi/@item.HINHANH" style="width:350px; height: 350px" />
+            </a>
+        </p>
+        <p>@item.TENTHIETBI</p>
+        <p>Giá: <span style="color: red"> @item.DONGIA VND</span></p>
+        <span>
+            <a class="btn" href="~/Admin/SuaThietBi/@item.MATHIETBI" style="background-color: black; border-radius: 100%">
+                <i class="fa-solid fa-pencil fa-beat" title="Sửa" style="color: #919b03; padding: 8px 2px"></i>
+            </a>
+        </span>
+        <span>
+            <a class="btn" href="~/Admin/XoaThietBi/@item.MATHIETBI" style="background-color: red; border-radius: 100%">
+                <i class="fa-solid fa-trash-can fa-shake" style="color: yellow; padding: 8px 2px"></i>
+            </a>
+        </span>
+    </div>
+    }
+</div>

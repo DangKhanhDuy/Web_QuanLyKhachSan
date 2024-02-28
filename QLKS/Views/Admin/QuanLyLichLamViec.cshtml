@@ -1,0 +1,62 @@
+﻿@model IEnumerable<QLKS.Models.LICHLAMVIEC>
+
+@{
+    ViewBag.Title = "QuanLyLichLamViec";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <h2 class="text-dark text-center">QUẢN LÝ LỊCH LÀM VIỆC CỦA NHÂN VIÊN</h2>
+    <div class="row">
+        <div class="col-10">
+
+        </div>
+        <div class="col-2 text-center">
+            <a class="btn btn-info text-light" href="~/Admin/themLich">Thêm lịch làm cho nhân viên</a>
+        </div>
+    </div>
+    <table class="table table-success">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Ca làm
+                </th>
+                <th>
+                    Thời gian làm
+                </th>
+                <th>
+                   Nhân viên
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CALAM)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NGAYLAM)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MANV)
+                    </td>
+                    <td>
+                        <span>
+                            <a class="btn" href="~/Admin/SuaLich/@item.CALAM" style="background-color: aqua; border-radius: 100%">
+                                <i class="fa-solid fa-pencil fa-beat" title="Sửa" style="color: #919b03; padding: 8px 2px"></i>
+                            </a>
+                        </span>
+                        <span>
+                            <a class="btn" href="~/Admin/XoaLich/@item.CALAM" style="background-color: orange; border-radius: 100%">
+                                <i class="fa-solid fa-trash-can fa-shake" style="color: yellow; padding: 8px 2px"></i>
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

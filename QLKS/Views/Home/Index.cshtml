@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSlider.cshtml";
+}
+<script src="~/Content/js/bootstrap.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="row">
+    @foreach (var i in Model)
+    {
+        <div class="col-3">
+            <p>
+                <img src="/images/loaiphong/@i.HINHANH" style="width:350px; height: 350px" />
+            </p>
+            <p class="text-dark" style="font-weight: bold; font-size: 20px">Loại phòng: @i.MALOAI</p>
+            <p class="text-dark" style="font-weight: bold; font-size: 20px">Giá: @i.DONGIA VNĐ</p>
+
+
+        </div>
+    }
+</div>
+
+<div class="container mt-5">
+    <h2 class="title text-center">Đánh giá của khách hàng</h2>
+    <div class="row">
+        <div class="col-md-4 ">
+            <div class="ngDungDanhGia">
+                <img src="~/images/Feedback/KH2.jpg">
+                <h3>Kiều Nguyệt Nga</h3>
+                <i class="fa fa-quote-left"></i>
+                <p>
+                    Sản phẩm rất tốt, web xịn mịn đẹp
+                </p>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4 ">
+            <div class="ngDungDanhGia">
+                <img src="~/images/Feedback/KH3.jpg">
+                <h3>Diễm My Cute</h3>
+                <i class="fa fa-quote-left"></i>
+                <p>
+                    Chất lượng bao phê, nên ghé tại khách sạn
+                </p>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4 ">
+            <div class="ngDungDanhGia">
+                <img src="~/images/Feedback/KH1.jpg">
+                <h3>Triệu Phi Vân</h3>
+                <i class="fa fa-quote-left"></i>
+                <p>
+                    Giá cả phải chăng, tư vấn nhiệt tình, nhân viên chu đáo
+                </p>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

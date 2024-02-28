@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Phong";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using QLKS.Models
+@model List<PHONG>
+
+<!-- BANNER -->
+<section class="banner-tems text-center">
+    <div class="container">
+        <div class="banner-content">
+            <h2>PHÒNG & GIÁ</h2>
+            <p>Giá tốt, phòng đẹp</p>
+        </div>
+    </div>
+</section>
+<!-- END-BANNER -->
+<!-- BODY-ROOM-1 -->
+<section class="body-room-1 ">
+    <div class="container">
+        <div class="room-wrap-1">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <!-- ITEM -->
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="room-item-1">
+                            <h2><a href="#">Phòng: @item.MAPHONG</a></h2>
+                            <div class="img">
+                                <a href="#"><img src="~/images/Phong/@item.HINHANH" alt="#"></a>
+                            </div>
+                            <div class="content">
+                                <ul>
+
+                                    <li>Số điện thoại bàn: @item.SDTBAN</li>
+                                    <li>Trạng thái phòng:  <span style="color: red">@item.TRANGTHAI</span></li>
+                                </ul>
+                            </div>
+                            <div class="bottom">
+                                <a href="#" class="btn">Đặt phòng</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END / ITEM -->
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END/BODY-ROOM-1-->

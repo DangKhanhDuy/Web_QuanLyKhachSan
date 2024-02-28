@@ -1,0 +1,576 @@
+﻿CREATE DATABASE QLKS
+GO
+
+USE QLKS
+GO
+
+CREATE TABLE TAIKHOAN
+(
+	TENDN NVARCHAR(20) PRIMARY KEY NOT NULL,
+	MATKHAU NVARCHAR(20) NOT NULL,
+	CHUCVU NVARCHAR(10)
+	--CHỨC VỤ CỦA NHÂN VIÊN
+)
+
+CREATE TABLE NHANVIEN
+(
+	MANV CHAR(10) PRIMARY KEY NOT NULL,
+	TENNV NVARCHAR(50) NOT NULL,
+	SDT NVARCHAR(20) NOT NULL,
+	GIOITINH NVARCHAR(5) NOT NULL,
+	EMAIL NVARCHAR(50) NOT NULL,
+	CCCD NVARCHAR(20) NOT NULL,
+	HINHANH VARCHAR(50),
+	TENDN NVARCHAR(20) NOT NULL
+	FOREIGN KEY (TENDN) REFERENCES TAIKHOAN
+)
+
+CREATE TABLE LICHLAMVIEC
+(
+	CALAM CHAR(10) PRIMARY KEY NOT NULL,
+	NGAYLAM DATETIME NOT NULL,
+	TONGTIEN  DECIMAL(18),
+	MANV CHAR(10) NOT NULL
+	FOREIGN KEY (MANV) REFERENCES NHANVIEN
+)
+
+CREATE TABLE KHACHHANG
+(
+	MAKH CHAR(10) NOT NULL PRIMARY KEY,
+	TENKH NVARCHAR(50) NOT NULL,
+	GIOITINH NVARCHAR(10) NOT NULL,
+	NGAYSINH DATE NOT NULL,
+	CCCD NVARCHAR(12) NOT NULL,
+	DIACHI NVARCHAR(50) NOT NULL,
+	EMAIL NVARCHAR(50) NOT NULL,
+	SDT NVARCHAR(20) NOT NULL,
+	TAIKHOAN VARCHAR(20),
+	MATKHAU VARCHAR(20),
+	TRANGTHAI INT
+)
+
+CREATE TABLE LOAIPHONG
+(
+	MALOAI CHAR(10) NOT NULL PRIMARY KEY,
+	DONGIA DECIMAL(12) NOT NULL,
+	SONGUOIMAX INT NOT NULL,
+	HINHANH VARCHAR(10)
+)
+
+CREATE TABLE PHONG
+(
+	MAPHONG CHAR(10) PRIMARY KEY NOT NULL,
+	SDTBAN VARCHAR(15) NOT NULL,
+	HINHANH VARCHAR(10),
+	TRANGTHAI NVARCHAR(50) NOT NULL,
+	MALOAI CHAR(10) NOT NULL
+	FOREIGN KEY (MALOAI) REFERENCES LOAIPHONG(MALOAI)
+)
+
+CREATE TABLE THIETBI
+(
+	MATHIETBI CHAR(10) NOT NULL PRIMARY KEY,
+	TENTHIETBI NVARCHAR(50) NOT NULL,
+	DONGIA DECIMAL(12) NOT NULL,
+	HINHANH VARCHAR(10)
+)
+
+CREATE TABLE CTTHIETBI
+(
+	MACTTB CHAR(10) PRIMARY KEY NOT NULL,
+	SOLUONG INT NOT NULL,
+	MATHIETBI CHAR(10) NOT NULL,
+	MAPHONG CHAR(10) NOT NULL
+	FOREIGN KEY (MATHIETBI) REFERENCES THIETBI(MATHIETBI),
+	FOREIGN KEY (MAPHONG) REFERENCES PHONG(MAPHONG)
+)
+
+CREATE TABLE DATPHONG
+(
+    MADATPHONG CHAR(10) PRIMARY KEY NOT NULL,
+    MAKH CHAR(10) NOT NULL,
+    MALOAI CHAR(10) NOT NULL,	
+	SONGUOIO INT NOT NULL,
+	THOIGIANDAT DATETIME NOT NULL,
+	THOIGIANTRA DATETIME NOT NULL,
+	SoNgayO INT,
+	TinhTrangThanhToan INT, --1 la da thanh toan ngan hang, 0 la thanh toan pp, -1 la chua thanh toan
+	ThanhTien DECIMAL(18)
+    FOREIGN KEY (MAKH) REFERENCES KHACHHANG(MAKH),
+    FOREIGN KEY (MALOAI) REFERENCES LOAIPHONG(MALOAI)
+)
+
+CREATE TABLE DICHVU
+(
+	MADV CHAR(10) NOT NULL PRIMARY KEY,
+	TENDICHVU NVARCHAR(50) NOT NULL,
+	DONGIA DECIMAL(12) NOT NULL,
+	MOTA NVARCHAR(500)
+)
+
+CREATE TABLE CTDICHVU
+(	
+	MACTDV CHAR(10) PRIMARY KEY NOT NULL,
+	MADV CHAR(10) NOT NULL,
+	SOLUONG INT NOT NULL,
+	MADATPHONG CHAR(10),
+	THANHTIEN DECIMAL(18)
+	FOREIGN KEY (MADV) REFERENCES DICHVU(MADV),
+	FOREIGN KEY (MADATPHONG) REFERENCES DATPHONG(MADATPHONG)
+	--THANH TIEN DICH VU SU DUNG TRIGGER
+)
+
+CREATE TABLE HOADON 
+(
+    MAHD CHAR(10) PRIMARY KEY NOT NULL,
+    MADATPHONG CHAR(10) NOT NULL,
+	MAPHONG CHAR(10) NOT NULL,
+	MANV CHAR(10) NOT NULL,	
+    NGAYXUAT DATETIME NULL,
+    TONGTIEN DECIMAL(18),
+	TRANGTHAI NVARCHAR(50) NULL,
+    FOREIGN KEY (MADATPHONG) REFERENCES DATPHONG(MADATPHONG),
+	FOREIGN KEY (MANV) REFERENCES NHANVIEN(MANV),
+	FOREIGN KEY (MAPHONG) REFERENCES PHONG(MAPHONG)
+	-- GIAM GIA THEO %, XỬ LÝ TRONG CODE --
+	-- TONG TIEN = TONG THANH TIEN TRONG CTHD + PHI THIET HAI + PHI DICH VU + PHU THU + (100%-%GIAM GIA)
+)
+
+CREATE TABLE CTTHIETHAI
+(
+	MACTTH CHAR(10) PRIMARY KEY NOT NULL,
+	MATHIETBI CHAR(10) NOT NULL,
+	SOLUONG INT,
+	MAHD CHAR(10) NOT NULL,
+	MOTA NVARCHAR(500) NULL,
+	THANHTIEN DECIMAL(18)
+	FOREIGN KEY (MATHIETBI) REFERENCES THIETBI(MATHIETBI),
+	FOREIGN KEY (MAHD) REFERENCES HOADON(MAHD)
+)
+
+CREATE TABLE CTHD
+(
+	MAHD CHAR(10) NOT NULL,
+	MADATPHONG CHAR(10) NOT NULL,
+	MACTDV CHAR(10) NULL,
+	MACTTH CHAR(10) NULL,
+	GIAMGIA INT NULL,
+	TONGTIENPHONG DECIMAL(18) NULL,
+	PHIDICHVU DECIMAL(18) NULL,
+	PHITHIETHAI DECIMAL(18) NULL,
+	PHUTHU DECIMAL(18) NULL,
+	THANHTIEN DECIMAL(18) NULL,
+	GHICHU NVARCHAR(50) NULL,
+	PRIMARY KEY (MAHD, MADATPHONG),
+	FOREIGN KEY (MAHD) REFERENCES HOADON(MAHD),
+	FOREIGN KEY (MADATPHONG) REFERENCES DATPHONG(MADATPHONG),
+	FOREIGN KEY (MACTDV) REFERENCES CTDICHVU(MACTDV),
+	FOREIGN KEY (MACTTH) REFERENCES CTTHIETHAI(MACTTH),
+	-- PHI THIET HAI VA PHI DICH VU SU DUNG TRIGGER / FUNCTION DE TINH TONG
+)
+
+-- *************** insert dữ liệu *************** --
+INSERT INTO TAIKHOAN VALUES
+('admin', '1235456',N'Quản lý'),
+('nv01', '1235456', N'Lễ tân'),
+('nv02', '1235456', N'Lễ tân'),
+('nv03', '1235456', N'Lễ tân'),
+('nv04', '1235456', N'Phục vụ'),
+('nv05', '1235456', N'Lễ tân'),
+('nv06', '1235456', N'Bảo vệ'),
+('nv07', '1235456', N'Lao công'),
+('nv08', '1235456', N'Lễ tân'),
+('nv09', '1235456', N'Lễ tân'),
+('nv10', '1235456', N'Phục vụ'),
+('nv11', '1235456', N'Lễ tân'),
+('nv12', '1235456', N'Bảo vệ'),
+('nv13', '1235456', N'Lao công')
+
+INSERT INTO NHANVIEN VALUES
+('Admin',N'Đào Phùng Thiên','0327985199',N'Nam','thiennn@gmail.com','778459624','admin.jpg','admin'),
+('NV01',N'Lê Minh Quân','0326598515',N'Nam','quan123@gmail.com','325417989','nv1.jpg','nv01'),
+('NV02',N'Nguyễn Thanh Hương','0341269875',N'Nữ','huong42@gmail.com','321698749','nv2.jpg','nv02'),
+('NV03',N'Phí Phương Anh','0365412698',N'Nữ','anhphuong114@gmail.com','784623654','nv3.jpg','nv03'),
+('NV04',N'Trần Lạc Tình','045626219',N'Nữ','dfd3@gmail.com','325417931','nv4.jpg','nv04'),
+('NV05',N'Ung Hoàng Tài','0254136987',N'Nam','tai56@gmail.com','236521498','nv5.jpg','nv05'),
+('NV06',N'Ngô Phước Hải','0165874621',N'Nam','haiphuoc@gmail.com','452041789','nv6.jpg','nv06'),
+('NV07',N'Lê Thị Dung','0365232149',N'Nữ','dungdung@gmail.com','236251423','nv7.jpg','nv07'),
+('NV08',N'Nguyễn Thị Bình','0365418749',N'Nữ','nguyenbinh67@gmail.com','398565412','nv8.jpg','nv08'),
+('NV09',N'Trần Hồng Ngọc','0463541239',N'Nữ','ngoc28@gmail.com','748965213','nv9.jpg','nv09'),
+('NV10',N'Triệu Minh Nhựt','0132654879',N'Nam','nhut6543@gmail.com','63254189','nv10.jpg','nv10'),
+('NV11',N'Lâm Quang Vinh','0326985713',N'Nam','quangvinh935@gmail.com','652148997','nv11.jpg','nv11'),
+('NV12',N'Phạm Văn Quang','0326598515',N'Nam','quan123@gmail.com','325417989','nv12.jpg','nv12'),
+('NV13',N'Hồ Thị Nga','0865214697',N'Nữ','ngaht@gmail.com','231657908','nv13.jpg','nv13')
+
+SET DATEFORMAT DMY
+INSERT INTO LICHLAMVIEC VALUES
+('CA01','13-10-2023 06:00:00',0,'NV01'),
+('CA02','23-09-2023 12:00:00',0,'NV08'),
+('CA03','12-08-2023 06:00:00',0,'NV09'),
+('CA04','14-11-2023 12:00:00',0,'NV05'),
+('CA05','22-08-2023 12:00:00',0,'NV03'),
+('CA06','19-07-2023 06:00:00',0,'NV10'),
+('CA07','11-10-2023 12:00:00',0,'NV11'),
+('CA08','09-06-2023 06:00:00',0,'NV02'),
+('CA09','02-08-2023 06:00:00',0,'NV05'),
+('CA10','07-07-2023 12:00:00',0,'NV08'),
+('CA11','15-11-2023 12:00:00',0,'NV13'),
+('CA12','11-10-2023 06:00:00',0,'NV05'),
+('CA13','27-08-2023 06:00:00',0,'NV07'),
+('CA14','15-09-2023 12:00:00',0,'NV06'),
+('CA15','10-12-2023 06:00:00',0,'NV12'),
+('CA16','12-11-2023 06:00:00',0,'NV04'),
+('CA17','07-07-2023 12:00:00',0,'NV02'),
+('CA18','15-11-2023 12:00:00',0,'NV05'),
+('CA19','11-10-2023 06:00:00',0,'NV07'),
+('CA20','27-08-2023 06:00:00',0,'NV06'),
+('CA21','15-09-2023 12:00:00',0,'NV06'),
+('CA22','10-12-2023 06:00:00',0,'NV11'),
+('CA23','12-11-2023 06:00:00',0,'NV03')
+
+SET DATEFORMAT DMY
+INSERT INTO KHACHHANG VALUES
+('KH01',N'Nguyễn An Khang', N'Nam','12-09-1997','236598745',N'Đồng Nai','khang@gmail.com','0365214896','khang123','112233',1),
+('KH02',N'Nguyễn Bảo Lộc', N'Nam','17-04-1988','651248967',N'Bình Dương','baoloc33@gmail.com','0325698746','loc123','112233',1),
+('KH03',N'Hàn Mỹ Thuận', N'Nữ','22-11-1989','698745631',N'TPHCM','mythuan24@gmail.com','032698741','thuan123','112233',1),
+('KH04',N'Trần Đình Huy', N'Nam','18-02-1976','6985412367',N'Long An','huyhuy23@gmail.com','0635417896','huy123','112233',1),
+('KH05',N'Phước An Lành', N'Nữ','28-12-2001','314789654',N'Nha Trang','lanh31@gmail.com','0451236987','lanh123','112233',1),
+('KH06',N'Nguyễn Ngọc Thuật', N'Nam','12-07-1996','69857461',N'Đà Nẵng','ngocthuat@gmail.com','0549654136','thuat123','112233',1),
+('KH07',N'Phùng Thanh Phong', N'Nam','19-11-1992','965412368',N'Ninh Thuận','phonggg@gmail.com','0315698746','phong123','112233',1),
+('KH08',N'Nguyễn Bá Lâm', N'Nam','15-04-1986','596541876',N'TPHCM','balam34@gmail.com','0659874632','lam123','112233',1),
+('KH09',N'Ngô Thanh Thúy', N'Nữ','30-09-1984','632149875',N'Lâm Đồng','thuythanh@gmail.com','0654187936','thuy123','112233',1),
+('KH10',N'Trần Lệ Nam', N'Nữ','16-05-1991','745654178',N'Đồng Nai','lenam@gmail.com','06363305210','nam123','112233',1),
+('KH11',N'Châu Văn Linh', N'Nam','29-07-1989','415632004',N'TPHCM','linh13@gmail.com','0874693461','linh123','112233',1)
+
+INSERT INTO LOAIPHONG VALUES
+('Standard','1500000',4,'Stan.jpg'),
+('Superior','210000',3,'Super.jpg'),
+('Deluxe','1500000',2,'Deluxe.jpg'),
+('Suite','210000',4,'Suite.jpg'),
+('Queenroom','1300000',4,'Queen.jpg'),
+('Villa','110000',3,'Villa.jpg')
+
+INSERT INTO PHONG VALUES
+('SD01','0289632147','ph1.jpg',N'Trống','Standard'),
+('SD02','0289632146','ph2.jpg',N'Đã đặt','Standard'),
+('SD03','0289632143','ph3.jpg',N'Đang dọn dẹp','Standard'),
+('SD04','0289632149','ph4.jpg',N'Trống','Standard'),
+('SD05','0289632141','ph5.jpg',N'Đã đặt','Standard'),
+('SR01','0289638451','ph6.jpg',N'Trống','Superior'),
+('SR02','0289638455','ph7.jpg',N'Đã đặt','Superior'),
+('SR03','0289638459','ph8.jpg',N'Trống','Superior'),
+('SR04','0289638453','ph9.jpg',N'Đã đặt','Superior'),
+('SR05','0289638457','ph10.jpg',N'Trống','Superior'),
+('DL01','0289639642','ph11.jpg',N'Đã đặt','Deluxe'),
+('DL02','0289639644','ph12.jpg',N'Đã đặt','Deluxe'),
+('DL03','0289639646','ph13.jpg',N'Đang dọn dẹp','Deluxe'),
+('DL04','0289639648','ph14.jpg',N'Đã đặt','Deluxe'),
+('DL05','0289639640','ph15.jpg',N'Trống','Deluxe'),
+('ST01','0289633291','ph16.jpg',N'Trống','Suite'),
+('ST02','0289633293','ph17.jpg',N'Đã đặt','Suite'),
+('ST03','0289633294','ph18.jpg',N'Trống','Suite'),
+('ST04','0289633296','ph19.jpg',N'Trống','Suite'),
+('ST05','0289633298','ph20.jpg',N'Đã đặt','Suite'),
+('QR01','0289634635','ph21.jpg',N'Trống','Queenroom'),
+('QR02','0289634637','ph22.jpg',N'Trống','Queenroom'),
+('QR03','0289634631','ph23.jpg',N'Đã đặt','Queenroom'),
+('QR04','0289634633','ph24.jpg',N'Trống','Queenroom'),
+('QR05','0289634639','ph25.jpg',N'Đã đặt','Queenroom'),
+('VL01','0289637952','ph26.jpg',N'Trống','Villa'),
+('VL02','0289637955','ph27.jpg',N'Đã đặt','Villa'),
+('VL03','0289637953','ph28.jpg',N'Trống','Villa'),
+('VL04','0289637958','ph29.jpg',N'Trống','Villa'),
+('VL05','0289637956','ph30.jpg',N'Trống','Villa')
+
+INSERT INTO THIETBI VALUES
+('COC',N'Cốc',150000,'coc.jpg'),
+('XP',N'Xà phòng',100000,'xaph.jpg'),
+('KT',N'Khăn tắm',250000,'khan1.jpg'),
+('KL',N'Khăn lau',250000,'khan2.jpg'),
+('BC',N'Bàn chải đánh răng',65000,'bot.jpg'),
+('KEM',N'Kem đánh răng',130000,'kem.jpg'),
+('AO',N'Áo choàng tắm',350000,'ao.jpg'),
+('DU',N'Ô/Dù',450000,'du.jpg'),
+('REMOTE',N'Điều khiển máy lạnh',150000,'remote.jpg'),
+('DEP',N'Dép lào',100000,'dep.jpg'),
+('BAN',N'Bàn',450000,'ban.jpg'),
+('GHE',N'Ghế',350000,'ghe.jpg'),
+('DEN',N'Đèn ngủ',250000,'den.jpg'),
+('CHANGA',N'Chăn ga giường',450000,'changa.jpg'),
+('NUOC',N'Nước uống đóng chai',50000,'nuoc.jpg')
+
+
+INSERT INTO CTTHIETBI VALUES
+('CTTB01', 3, 'COC', 'SD01'),
+('CTTB02', 5, 'XP', 'SD01'),
+('CTTB03', 3,'KT', 'SD02'),
+('CTTB04', 4, 'KL', 'SD02'),
+('CTTB05', 1, 'BC', 'SD03'),
+('CTTB06', 4,'KEM', 'SD03'),
+('CTTB07', 3, 'AO', 'SD04'),
+('CTTB08', 1, 'DU', 'SD04'),
+('CTTB09', 2, 'REMOTE', 'SR01'),
+('CTTB10', 3, 'DEP', 'SR01'),
+('CTTB11', 4, 'BAN', 'SR02'),
+('CTTB12', 3, 'GHE', 'SR02'),
+('CTTB13', 4, 'DEN', 'SR03'),
+('CTTB14', 1, 'CHANGA', 'SR03'),
+('CTTB15', 3, 'COC', 'SR04'),
+('CTTB16', 4, 'XP', 'SR04'),
+('CTTB17', 1, 'KT', 'SR05'),
+('CTTB18', 3, 'KL', 'SR05'),
+('CTTB19', 2, 'BC', 'DL01'),
+('CTTB20', 4, 'KEM', 'DL01'),
+('CTTB21', 3, 'AO', 'DL02'),
+('CTTB22', 1, 'DU', 'DL02'),
+('CTTB23', 4, 'REMOTE', 'DL03'),
+('CTTB24', 2, 'DEP', 'DL03'),
+('CTTB25', 1, 'BAN', 'DL04'),
+('CTTB26', 3, 'GHE', 'DL04'),
+('CTTB27', 1, 'DEN', 'DL05'),
+('CTTB28', 1, 'CHANGA', 'DL05'),
+('CTTB29', 3, 'COC', 'ST01'),
+('CTTB30', 2, 'XP', 'ST01'),
+('CTTB31', 1, 'KT', 'ST02'),
+('CTTB32', 4, 'KL', 'ST02'),
+('CTTB33', 3, 'BC', 'ST03'),
+('CTTB34', 3, 'KEM', 'ST03'),
+('CTTB35', 2, 'AO', 'ST04'),
+('CTTB36', 1, 'DU', 'ST04'),
+('CTTB37', 4, 'REMOTE', 'ST05'),
+('CTTB38', 2, 'DEP', 'ST05'),
+('CTTB39', 3, 'BAN', 'QR01'),
+('CTTB40', 1, 'GHE', 'QR01'),
+('CTTB41', 2, 'DEN', 'QR02'),
+('CTTB42', 4, 'CHANGA', 'QR02'),
+('CTTB43', 1, 'COC', 'QR03'),
+('CTTB44', 3, 'XP', 'QR03'),
+('CTTB45', 4, 'KT', 'QR04'),
+('CTTB46', 3, 'KL', 'QR04'),
+('CTTB47', 4, 'BC', 'QR05'),
+('CTTB48', 3, 'KEM', 'QR05'),
+('CTTB49', 1, 'AO', 'VL01'),
+('CTTB50', 1, 'DU', 'VL01'),
+('CTTB51', 3, 'REMOTE', 'VL02'),
+('CTTB52', 4, 'DEP', 'VL02'),
+('CTTB53', 1, 'BAN', 'VL03'),
+('CTTB54', 1, 'GHE', 'VL03'),
+('CTTB55', 3, 'DEN', 'VL04'),
+('CTTB56', 1, 'CHANGA', 'VL04'),
+('CTTB57', 4, 'COC', 'VL05'),
+('CTTB58', 1, 'XP', 'VL05')
+
+SET DATEFORMAT DMY
+INSERT INTO DATPHONG VALUES
+('DP01', 'KH01', 'Standard', 2, '15-01-2023 12:00:00', '20-01-2023 12:00:00', 5,1, 7500000),
+('DP02', 'KH02', 'Superior', 3, '22-02-2023 14:00:00', '25-02-2023 10:00:00', 3,1, 630000),
+('DP03', 'KH03', 'Deluxe', 4, '10-03-2023 10:00:00', '17-03-2023 12:00:00', 7,1, 10500000),
+('DP04', 'KH04', 'Standard', 2, '08-04-2023 08:00:00', '10-04-2023 12:00:00', 2,1, 3000000),
+('DP05', 'KH05', 'Superior', 3, '28-05-2023 10:00:00', '31-05-2023 10:00:00', 3,1, 630000),
+('DP06', 'KH06', 'Deluxe', 4, '20-06-2023 14:00:00', '25-06-2023 12:00:00', 5,1, 7500000),
+('DP07', 'KH07', 'Standard', 3, '02-05-2023 12:00:00', '12-05-2023 12:00:00', 10,1, 15000000),
+('DP08', 'KH08', 'Superior', 3, '16-08-2023 08:00:00', '20-08-2023 10:00:00', 4,1, 840000),
+('DP09', 'KH09', 'Deluxe', 4, '11-10-2023 10:00:00', '21-10-2023 12:00:00', 10,1, 15000000),
+('DP10', 'KH10', 'Standard', 1, '17-11-2023 14:00:00', '20-11-2023 12:00:00', 3,1, 4500000)
+
+INSERT INTO DICHVU VALUES
+('DV01', N'Spa', 150000, N'Dịch vụ spa chăm sóc khách hàng'),
+('DV02', N'Thuê tiệc cưới', 200000, N'Tiệc cưới được chuẩn bị như nhà hàng với quy mô nhỏ hơn'),
+('DV03', N'Buffer', 280000, N'Dịch vụ ăn buffer thoải mái'),
+('DV04', N'Tặng hoa', 250000, N'Dịch vụ tặng hoa theo yêu cầu'),
+('DV05', N'Múa', 300000, N'Múa nhân dịp sinh nhật, sự kiện hoặc khác'),
+('DV06', N'Tư vấn', 120000, N'Dịch vụ tư vấn khi khách có nhu cầu'),
+('DV07', N'Quầy nước uống', 175000, N'Nước uống tùy loại, tùy lứa tuổi'),
+('DV08', N'Chào đối tác', 220000, N'Đối tác đến khách sạn, chào đối tác một cách chỉnh chu')
+
+INSERT INTO CTDICHVU VALUES
+('CTDV01', 'DV01', 3, 'DP01', 450000),
+('CTDV02', 'DV02', 2, 'DP02', 400000),
+('CTDV03', 'DV01', 4, 'DP03', 720000),
+('CTDV04', 'DV04', 1, 'DP04', 250000),
+('CTDV05', 'DV05', 3, 'DP05', 900000),
+('CTDV06', 'DV06', 3, 'DP06', 240000),
+('CTDV07', 'DV07', 4, 'DP07', 700000),
+('CTDV08', 'DV08', 2 ,'DP08', 440000),
+('CTDV09', 'DV03', 3, 'DP09', 570000),
+('CTDV10', 'DV05', 1, 'DP10', 260000)
+
+SET DATEFORMAT DMY
+INSERT INTO HOADON VALUES
+('HD01', 'DP01', 'SD01', 'NV01', '15-12-2023 12:00:00', 450000, N'Đã thanh toán'),
+('HD02', 'DP02', 'SD02', 'NV02', '21-11-2023 14:00:00', 600000, N'Chưa thanh toán'),
+('HD03', 'DP03', 'SD03', 'NV03', '13-10-2023 10:00:00', 750000, N'Đã thanh toán'),
+('HD04', 'DP04', 'SD04', 'NV04', '23-11-2023 08:00:00', 0, N'Chưa thanh toán'),
+('HD05', 'DP05', 'SD05', 'NV03', '31-10-2023 10:00:00', 0, N'Chưa thanh toán')
+
+INSERT INTO CTTHIETHAI VALUES
+('CTTH01', 'COC', 3, 'HD01', N'Vỡ cốc', 450000),
+('CTTH02', 'DU', 2, 'HD02', N'Mất dù khi đi biển', 800000),
+('CTTH03', 'KEM', 2, 'HD03', N'Sử dụng', 500000),
+('CTTH04', 'DEP', 1, 'HD04', N'Đứt dép', 1500000),
+('CTTH05', 'DEP', 2, 'HD05', N'Mất', 600000)
+
+INSERT INTO CTHD VALUES
+('HD01', 'DP01', NULL, NULL, 0, 7500000, 450000, 450000, 0, 8400000, ''),
+('HD02', 'DP02', NULL, NULL, 0, 630000, 400000, 800000, 0, 1830000, ''),
+('HD03', 'DP03', NULL, NULL, 0, 10500000, 720000, 500000, 0, 11720000, '')
+
+-- ************* MỘT SỐ RÀNG BUỘC / HÀM / THỦ TỤC CHO CSDL ************* --
+
+-- Tạo trigger để tự động cập nhật giá trị của SoNgayO khi có sự thay đổi trong THOIGIANTRA hoặc THOIGIANDAT
+CREATE TRIGGER tr_UpdateSoNgayO
+ON DATPHONG
+AFTER UPDATE
+AS
+BEGIN
+    IF UPDATE(THOIGIANDAT) OR UPDATE(THOIGIANTRA)
+    BEGIN
+        UPDATE dp
+        SET SoNgayO = DATEDIFF(day, dp.THOIGIANDAT, dp.THOIGIANTRA)
+        FROM DATPHONG dp
+        INNER JOIN inserted i ON dp.MADATPHONG = i.MADATPHONG;
+    END
+END;
+
+-- Tạo trigger để tự động cập ThanhTien bảng DATPHONG
+CREATE TRIGGER CapNhatThanhTien
+ON DATPHONG
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Cập nhật ThanhTien dựa trên công thức
+    UPDATE dp
+    SET dp.ThanhTien = (dp.SoNgayO * lp.DONGIA)
+    FROM DATPHONG dp
+    INNER JOIN inserted i ON dp.MADATPHONG = i.MADATPHONG
+    INNER JOIN LOAIPHONG lp ON dp.MALOAI = lp.MALOAI
+END;
+
+-- Tạo trigger để tự động cập TONGTIENPHONG bảng CTHD
+CREATE TRIGGER CapNhatThanhTienDatPhong
+ON CTHD
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    UPDATE dp
+    SET ThanhTien = cthd.TONGTIENPHONG
+    FROM DATPHONG dp
+    INNER JOIN inserted i ON dp.MADATPHONG = i.MADATPHONG
+    INNER JOIN CTHD cthd ON i.MADATPHONG = cthd.MADATPHONG
+END;
+
+-- Trigger tính THANHTIEN trong bảng CTTHIETHAI
+CREATE TRIGGER tr_CalculateThanhTien_CTTHIETHAI
+ON CTTHIETHAI
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Tính THANHTIEN
+    UPDATE ctth
+    SET THANHTIEN = ISNULL(t.DONGIA * ctth.SOLUONG, 0)
+    FROM CTTHIETHAI ctth
+    INNER JOIN inserted i ON ctth.MACTTH = i.MACTTH
+    INNER JOIN THIETBI t ON ctth.MATHIETBI = t.MATHIETBI;
+END;
+
+
+-- Trigger tính PHIDICHVU và TONGTIENPHONG trong bảng CTHD
+CREATE TRIGGER tr_CalculatePHI_TONGTIEN_CTHD
+ON CTHD
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Tính PHIDICHVU
+    UPDATE cthd
+    SET PHIDICHVU = ISNULL((
+        SELECT SUM(ISNULL(ctdv.THANHTIEN, 0))
+        FROM CTDICHVU ctdv
+        WHERE ctdv.MADATPHONG = cthd.MADATPHONG
+    ), 0)
+    FROM CTHD cthd
+    INNER JOIN inserted i ON cthd.MADATPHONG  = i.MADATPHONG ;
+
+    -- Tính TONGTIENPHONG
+    UPDATE CTHD
+    SET TONGTIENPHONG = ISNULL(dp.ThanhTien, 0)
+    FROM CTHD cthd
+    INNER JOIN inserted i ON cthd.MADATPHONG = i.MADATPHONG
+    INNER JOIN DATPHONG dp ON cthd.MADATPHONG = dp.MADATPHONG;
+
+    -- Tính PHITHIETHAI
+    UPDATE cthd
+    SET PHITHIETHAI = (
+        SELECT ISNULL(SUM(ISNULL(ctth.THANHTIEN, 0)), 0)
+        FROM CTTHIETHAI ctth
+        WHERE ctth.MAHD = cthd.MAHD
+    )
+    FROM CTHD cthd
+    INNER JOIN inserted i ON cthd.MAHD = i.MAHD;
+
+    -- Cập nhật THANHTIEN trong bảng CTHD
+	UPDATE CTHD
+	SET THANHTIEN = ISNULL(cthd.TONGTIENPHONG, 0) + ISNULL(cthd.PHIDICHVU, 0) + ISNULL(cthd.PHITHIETHAI, 0) + ISNULL(cthd.PHUTHU, 0)
+                - ISNULL(cthd.GIAMGIA, 0) / 100.0 * (ISNULL(cthd.TONGTIENPHONG, 0) + ISNULL(cthd.PHIDICHVU, 0) + ISNULL(cthd.PHITHIETHAI, 0) + ISNULL(cthd.PHUTHU, 0))
+	FROM CTHD cthd
+	INNER JOIN inserted i ON cthd.MADATPHONG = i.MADATPHONG;  -- Sử dụng MADATPHONG thay cho MACTHD
+END;
+
+-- Trigger to update TONGTIEN in HOADON table
+CREATE TRIGGER TONGTIEN_TRIGGER
+ON CTHD
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    IF (EXISTS (SELECT 1 FROM inserted) OR EXISTS (SELECT 1 FROM deleted))
+    BEGIN
+        UPDATE HOADON
+        SET TONGTIEN = (
+            SELECT ISNULL(SUM(THANHTIEN), 0)
+            FROM CTHD
+            WHERE CTHD.MAHD = HOADON.MAHD
+        )
+        FROM HOADON
+        INNER JOIN inserted ON HOADON.MAHD = inserted.MAHD
+        OR HOADON.MAHD IN (SELECT MAHD FROM deleted);
+    END
+END;
+
+
+-- Trigger tính THANHTIEN trong bảng CTDICHVU
+CREATE TRIGGER tr_CalculateTHANHTIEN_CTDICHVU
+ON CTDICHVU
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    UPDATE ctdv
+    SET THANHTIEN = ISNULL(i.SOLUONG, 0) * ISNULL(d.DONGIA, 0)
+    FROM CTDICHVU ctdv
+    INNER JOIN DICHVU d ON ctdv.MADV = d.MADV
+    INNER JOIN inserted i ON ctdv.MACTDV = i.MACTDV;
+END;
+
+-- thủ tục tính lương NV
+CREATE PROC TINH_LUONG_NV
+AS
+BEGIN
+	UPDATE LICHLAMVIEC
+	SET TONGTIEN=
+		CASE 
+            WHEN TK.CHUCVU = N'Quản lý' THEN 300000
+            WHEN TK.CHUCVU = N'Lễ tân' OR TK.CHUCVU = N'Phục vụ' THEN 250000
+			WHEN TK.CHUCVU = N'Bảo vệ' OR TK.CHUCVU = N'Lao công' THEN 200000
+			ELSE 0
+        END
+    FROM NHANVIEN NV
+    INNER JOIN LICHLAMVIEC CA ON NV.MANV = CA.MANV
+    LEFT JOIN TAIKHOAN TK ON NV.TENDN = TK.TENDN
+    WHERE NV.MANV = CA.MANV AND TK.TENDN=NV.TENDN
+END
+GO
+
+-- CHẠY THỦ TỤC TÍNH LƯƠNG NV
+EXEC TINH_LUONG_NV

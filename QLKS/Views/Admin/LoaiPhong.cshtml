@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "LoaiPhong";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using QLKS.Models
+@model List<LOAIPHONG>
+
+
+<!-- OUR-ROOMS-->
+<section class="rooms">
+    <div class="container">
+        <h2 class="title-room">Our Rooms</h2>
+        <div class="outline"></div>
+        <p class="rooms-p"></p>
+        <div class="wrap-rooms">
+            <div class="row">
+                <div id="rooms" class="owl-carousel owl-theme">
+                    @for (int i = 0; i < Math.Ceiling((decimal)((Model != null ? Model.Count() : 0) / 6)); i++)
+                    {
+                        <div class="item ">
+                            @foreach (var item in Model.Skip(i * 6).Take(6))
+                            {
+                                <a href="@Url.Action("Phong", "Admin", new { @ma = item.MALOAI })">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 ">
+                                        <div class="wrap-box">
+                                            <div class="box-img">
+                                                <img src="~/images/loaiphong/@item.HINHANH" class="img-responsive">
+                                            </div>
+                                            <div class="rooms-content">
+                                                <h4 class="sky-h4">@item.MALOAI</h4>
+                                                <p class="price">@item.DONGIA / Ngày</p>
+                                                <p>Số người tối đa: @item.SONGUOIMAX</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /container -->
+</section>
+<!-- END / ROOMS -->

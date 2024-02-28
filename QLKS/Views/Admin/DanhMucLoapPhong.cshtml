@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "DanhMucLoapPhong";
+    Layout = "~/Views/Shared/_LayoutSlider.cshtml";
+}
+@model PagedList.IPagedList<QLKS.Models.LOAIPHONG>
+@using PagedList.Mvc;
+
+<div class="row">
+    @foreach (var i in Model)
+    {
+        <div class="col-3">
+            <p>
+                <a href="@Url.Action("XemCT","Admin", new { @maphong = i.MALOAI })">
+                    <img src="~/images/loaiphong/@i.HINHANH" style="width:350px; height: 350px" />
+                </a>
+            </p>
+            <p class="text-dark" style="font-weight: bold; font-size: 20px">Loại phòng: @i.MALOAI</p>
+            <p class="text-dark" style="font-weight: bold; font-size: 20px">Giá: @i.DONGIA</p>
+
+
+        </div>
+    }
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

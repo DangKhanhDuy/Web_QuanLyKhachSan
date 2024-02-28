@@ -1,0 +1,64 @@
+﻿@model QLKS.Models.NHANVIEN
+
+@{
+    ViewBag.Title = "SuaNV";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="container">
+        <h2 style="font-weight: bold">Cập nhật thông tin nhân viên</h2>
+        <form action="/Admin/SuaNV" method="post">
+            @Html.HiddenFor(model => model.MANV)
+            <table class="table table-striped">
+                    <tr>
+                        <th style="font-weight: bold;">Tên nhân viên</th>
+                        <td>
+                            @Html.EditorFor(model => model.TENNV)
+                            @Html.ValidationMessageFor(model => model.TENNV)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: bold;">SDT</th>
+                        <td>
+                            @Html.EditorFor(model => model.SDT)
+                            @Html.ValidationMessageFor(model => model.SDT)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: bold;">Giới tính</th>
+                        <td>
+                            @Html.EditorFor(model => model.GIOITINH)
+                            @Html.ValidationMessageFor(model => model.GIOITINH)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: bold;">Email</th>
+                        <td>
+                            @Html.EditorFor(model => model.EMAIL)
+                            @Html.ValidationMessageFor(model => model.EMAIL)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: bold;">CMND/CCCD</th>
+                        <td>
+                            @Html.EditorFor(model => model.CCCD)
+                            @Html.ValidationMessageFor(model => model.CCCD)
+                        </td>
+                    <tr>
+                        <th style="font-weight: bold;">Tên đăng nhập</th>
+                        <td>
+                            @Html.EditorFor(model => model.TENDN)
+                            @Html.ValidationMessageFor(model => model.TENDN)
+                        </td>
+                    </tr>                
+            </table>
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </form>
+    </div>
+}

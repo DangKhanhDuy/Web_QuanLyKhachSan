@@ -1,0 +1,46 @@
+﻿@model QLKS.Models.THIETBI
+
+@{
+    ViewBag.Title = "XoaThietBi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="container">
+    <h3>Bạn có muốn xóa không?</h3>
+    <form action="/Admin/XoaThietBi" method="post">
+        <div class="row d-flex">
+            <div class="col">
+                @Html.DisplayNameFor(model => model.TENTHIETBI)
+            </div>
+            <div class="col">
+                @Html.DisplayFor(model => model.TENTHIETBI)
+            </div>
+        </div>
+
+        <div class="row d-flex">
+            <div class="col">
+                @Html.DisplayNameFor(model => model.DONGIA)
+            </div>
+            <div class="col">
+                @Html.DisplayFor(model => model.DONGIA)
+            </div>
+        </div>
+
+        <div class="row d-flex">
+            <div class="col">
+                @Html.DisplayNameFor(model => model.HINHANH)
+            </div>
+            <div class="col">
+                @Html.DisplayFor(model => model.HINHANH)
+            </div>
+        </div>
+        <p>
+            <input type="submit" value="Delete" />
+        </p>
+    </form>
+</div>
+}

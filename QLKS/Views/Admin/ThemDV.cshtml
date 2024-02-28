@@ -1,0 +1,59 @@
+﻿@model QLKS.Models.DICHVU
+
+@{
+    ViewBag.Title = "ThemDV";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="topbar">
+    <div class="toggle">
+        <ion-icon name="menu-outline"></ion-icon>
+    </div>
+</div>
+
+<div class="create" style="margin-left:15px;">
+    @using (Html.BeginForm("ThemDV", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <h2 style="text-align:center;">Thêm Dịch Vụ</h2>
+        <div class="form-horizontal" style="border: 1px solid; margin: 8px; border-radius: 8px; box-shadow: 0 7px 25px rgb(0 0 0 / 8%);height:200px;">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-row" style="margin-top: 20px;">
+                <div class="form-group col-md-2">
+                    <label for="TENDICHVU">Tên Dịch vụ:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TENDICHVU, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.TENDICHVU, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="DONGIA">Đơn giá:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DONGIA, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DONGIA, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="MOTA">Mô tả:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MOTA, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MOTA, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-row" style="margin-top: 20px;">
+                <div style="margin-left:16px;">
+                    <a href="@Url.Action("QLDichVu", "Admin")" role="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Trở về</a>
+                    <input type="submit" value="Xác Nhận" class="btn btn-success" />
+                </div>
+            </div>
+            </div>
+            }
+        </div>

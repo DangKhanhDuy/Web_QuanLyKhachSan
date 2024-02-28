@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "ThongKe";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    decimal TKLuong = ViewBag.tongtien;
+    decimal TKDV = ViewBag.doanhThuDV;
+    decimal TKTong = ViewBag.TongDTKS;
+
+}
+@using QLKS.Models
+
+<div class="container">
+    <h2>THÔNG KÊ DOANH THU KHÁCH SẠN</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Trả lương nhân viên</td>
+                <td>Doanh thu dịch vụ</td>
+                <td>Tổng doanh thu khách sạn</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="numbers">@string.Format("{0:#,##0} VND", TKLuong)</td>
+                <td class="numbers">@string.Format("{0:#,##0} VND", TKDV)</td>
+                <td class="numbers">@string.Format("{0:#,##0} VND", TKTong)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

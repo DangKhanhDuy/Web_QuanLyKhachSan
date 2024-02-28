@@ -1,0 +1,65 @@
+﻿@model QLKS.Models.CTHD
+
+@{
+    ViewBag.Title = "CapNhatCTHoaDon";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="text-align: center"> Cập Nhật Chi Tiết Hóa Đơn</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.MAHD)
+    @Html.HiddenFor(model => model.MADATPHONG)
+
+    <fieldset>
+        <legend></legend>
+
+        <section class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Giảm Giá</label>
+                                <p class="form-control">
+                                    @Html.EditorFor(model => model.GIAMGIA)
+                                    @Html.ValidationMessageFor(model => model.GIAMGIA)
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Phụ Thu Phát Sinh</label>
+                                <p class="form-control">
+                                    @Html.EditorFor(model => model.PHUTHU)
+                                    @Html.ValidationMessageFor(model => model.PHUTHU)
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Ghi chú</label>
+                                <p class="form-control">
+                                    @Html.EditorFor(model => model.GHICHU)
+                                    @Html.ValidationMessageFor(model => model.GHICHU)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <p style="text-align: center">
+            <input type="submit" value="Cập Nhật Tổng Hóa Đơn" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "ListHoaDon")
+</div>

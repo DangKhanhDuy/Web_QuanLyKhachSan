@@ -1,0 +1,74 @@
+﻿@model QLKS.Models.CTTHIETHAI
+
+@{
+    ViewBag.Title = "ThietHai";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Styles.Render("~/Content/Site.css")
+<h2 style="text-align: center">Thiệt Hại</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend></legend>
+
+        <div class="editor-label">
+            Mã Chi Tiết Thiệt Hại
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MACTTH)
+            @Html.ValidationMessageFor(model => model.MACTTH)
+        </div>
+        <div class="editor-label">
+            Tên Thiết Bị
+        </div>
+        <div class="editor-field" style="display: flex; justify-content: center;">
+            @Html.DropDownListFor(model => model.MATHIETBI, ViewBag.ThietBiList as SelectList, "Chọn Thiệt Hại", new { @class = "form-control", style = "width: 250px;" })
+            @Html.ValidationMessageFor(model => model.MATHIETBI)
+        </div>
+
+        <div class="editor-label">
+            Số Lượng
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SOLUONG)
+            @Html.ValidationMessageFor(model => model.SOLUONG)
+        </div>
+
+        @*<div class="editor-label">
+            Mã Hóa Đơn
+        </div>
+        <div class="editor-field" style="display: flex; justify-content: center;">
+            @Html.DropDownListFor(model => model.MAHD, ViewBag.HoaDonList as SelectList, "Chọn Hóa Đơn", new { @class = "form-control", style = "width: 250px;" })
+            @Html.ValidationMessageFor(model => model.MAHD)
+        </div>*@
+
+        <div class="editor-label">
+            Mô Tả
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MOTA)
+            @Html.ValidationMessageFor(model => model.MOTA)
+        </div>
+
+        @*<div class="editor-label">
+                @Html.LabelFor(model => model.THANHTIEN)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.THANHTIEN)
+                @Html.ValidationMessageFor(model => model.THANHTIEN)
+            </div>*@
+
+        <p style="text-align: center">
+            <input type="submit" value="Xác Nhận Thiệt Hại" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

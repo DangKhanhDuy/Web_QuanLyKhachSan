@@ -1,0 +1,68 @@
+﻿@model QLKS.Models.CTDICHVU
+
+@{
+    ViewBag.Title = "DatDichVu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    
+}
+
+@Styles.Render("~/Content/Site.css")
+
+<h2 style="text-align: center">ĐẶT DỊCH VỤ</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend></legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MACTDV)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MACTDV)
+            @Html.ValidationMessageFor(model => model.MACTDV)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MADV)
+        </div>
+        <div class="editor-field" style="display: flex; justify-content: center;">
+            @Html.DropDownListFor(model => model.MADV, ViewBag.DichVuList as SelectList, "Chọn Dịch Vụ", new { @class = "form-control", style = "width: 250px;" })
+            @Html.ValidationMessageFor(model => model.MADV)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SOLUONG)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SOLUONG)
+            @Html.ValidationMessageFor(model => model.SOLUONG)
+        </div>
+
+        @*<div class="editor-label">
+            <h4>Mã Đặt Phòng</h4>
+        </div>
+        <div class="editor-field" style="display: flex; justify-content: center;">
+            @Html.DropDownListFor(model => model.MADATPHONG, ViewBag.DatPhongList as SelectList, "Chọn DatPhong", new { @class = "form-control", id = "MADATPHONG", style = "width: 250px;" })
+            @Html.ValidationMessageFor(model => model.MADATPHONG)
+        </div>*@
+
+        @*<div class="editor-label">
+                @Html.LabelFor(model => model.THANHTIEN)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.THANHTIEN)
+                @Html.ValidationMessageFor(model => model.THANHTIEN)
+            </div>*@
+
+        <p style="text-align: center">
+            <input type="submit" value="Đặt Dịch Vụ" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

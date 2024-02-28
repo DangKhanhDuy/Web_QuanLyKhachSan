@@ -1,0 +1,149 @@
+﻿@model QLKS.Models.HOADON
+
+@{
+    ViewBag.Title = "NhanPhong";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        // Sự kiện khi giá trị của dropdown MADATPHONG thay đổi
+        $("#MADATPHONG").change(function () {
+            var selectedMadatphong = $(this).val();
+
+            // Gửi yêu cầu Ajax để lấy danh sách MAPHONG theo MADATPHONG và MALOAI
+            $.ajax({
+                url: '@Url.Action("GetMaPhongByMadatphong", "Admin")',
+                type: "GET",
+                data: { madatphong: selectedMadatphong },
+                success: function (data) {
+                    // Xóa tất cả các mục hiện tại trong dropdown MAPHONG
+                    $("#MAPHONG").empty();
+
+                    // Thêm mục "Chọn MAPHONG" vào dropdown
+                    $("#MAPHONG").append($('<option>', {
+                        value: "",
+                        text: "Chọn MAPHONG"
+                    }));
+
+                    // Thêm từng mục MAPHONG vào dropdown
+                    $.each(data, function (index, item) {
+                        $("#MAPHONG").append($('<option>', {
+                            value: item.Value,
+                            text: item.Text
+                        }));
+                    });
+                },
+                error: function () {
+                    // Xử lý lỗi nếu có
+                }
+            });
+        });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#MADATPHONG').change(function () {
+            var selectedMADATPHONG = $(this).val();
+
+            // Thực hiện yêu cầu AJAX để lấy TENKH dựa trên MADATPHONG được chọn
+            $.ajax({
+                url: '/Admin/GetTENKH',
+                type: 'GET',
+                data: { MADATPHONG: selectedMADATPHONG },
+                success: function (data) {
+                    // Hiển thị TENKH trong textbox
+                    $('#TENKH').val(data);
+                },
+                error: function () {
+                    alert('Lỗi khi lấy dữ liệu.');
+                }
+            });
+        });
+    });
+</script>
+@Styles.Render("~/Content/Site.css")
+
+<h2 style="text-align: center">THÔNG TIN NHẬN PHÒNG</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+<fieldset>
+    <legend></legend>
+
+    <div class="editor-label">
+        <h4>Mã Hóa Đơn</h4>
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.MAHD)
+        @Html.ValidationMessageFor(model => model.MAHD)
+    </div>
+
+    <div class="editor-label">
+        <h4>Mã Khách Hàng</h4>
+    </div>
+    <div class="editor-field" style="display: flex; justify-content: center;">
+        @Html.DropDownListFor(model => model.MADATPHONG, ViewBag.DatPhongList as SelectList, "Chọn Mã Khách Hàng", new { @class = "form-control", id = "MADATPHONG", style = "width: 250px;" })
+        @Html.ValidationMessageFor(model => model.MADATPHONG)
+    </div>
+    <div class="editor-label">
+        <label for="TENKH">Tên Khách Hàng:</label>
+    </div>
+    <div class="editor-field" style="display: flex; justify-content: center;">
+        <input type="text" id="TENKH" name="TENKH" readonly="readonly" style="width: 250px;">
+    </div>
+
+    <div class="editor-label">
+        <h4>Mã Phòng</h4>
+    </div>
+    <div class="editor-field" style="display: flex; justify-content: center;">
+        @Html.DropDownListFor(model => model.MAPHONG, new SelectList(new List<SelectListItem>(), "Value", "Text"), "Chọn MAPHONG", new { @class = "form-control", id = "MAPHONG", style = "width: 250px;" })
+        @Html.ValidationMessageFor(model => model.MAPHONG)
+    </div>
+
+    <div class="editor-label">
+        <h4>Tên Nhân Viên</h4>
+    </div>
+    <div class="editor-field" style="display: flex; justify-content: center;">
+        @Html.DropDownListFor(model => model.MANV, ViewBag.NhanVienList as SelectList, "Chọn Nhân Viên", new { @class = "form-control", style = "width: 250px;" })
+        @Html.ValidationMessageFor(model => model.MANV)
+    </div>
+
+    @*<div class="editor-label">
+            <h4>Ngày Xuất</h4>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NGAYXUAT)
+            @Html.ValidationMessageFor(model => model.NGAYXUAT)
+        </div>*@
+
+    @*<div class="editor-label">
+            @Html.LabelFor(model => model.TONGTIEN)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TONGTIEN)
+            @Html.ValidationMessageFor(model => model.TONGTIEN)
+        </div>*@
+
+    <div class="editor-label">
+        <h4>Trạng Thái</h4>
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.TRANGTHAI, new { @readonly = "readonly", @class = "center-text" })
+        @Html.ValidationMessageFor(model => model.TRANGTHAI)
+    </div>
+
+    <p style="text-align: center">
+        <input type="submit" value="Xác Nhận Nhận Phòng" />
+    </p>
+</fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

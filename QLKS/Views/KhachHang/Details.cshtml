@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    KHACHHANG a = ViewBag.k;
+}
+@using QLKS.Models;
+<div class="container">
+    <h2>Thông Tin Khách Hàng</h2>
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Họ tên</th>
+                <th>Giới tính</th>
+                <th>Ngày sinh</th>
+                <th>CCCD</th>
+                <th>Địa chỉ</th>
+                <th>Email</th>
+                <th>SĐT</th>
+                <th>Tài khoản</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                <td>@a.TENKH</td>
+                <td>@a.GIOITINH</td>
+                <td>@a.NGAYSINH</td>
+                <td>@a.CCCD</td>
+                <td>@a.DIACHI</td>
+                <td>@a.EMAIL</td>
+                <td>@a.SDT</td>
+                <td>@a.TAIKHOAN</td>
+                <td>@a.TRANGTHAI</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <a style=" margin: 28px; margin-left: 43px;" href="@Url.Action("Index", "KhachHang")" role="button" class="btn btn-primary"><i class="fas fa-angle-left"></i> Trở về</a>
+    </div>
+</div>

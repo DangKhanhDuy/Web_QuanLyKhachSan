@@ -1,0 +1,85 @@
+﻿@model IEnumerable<QLKS.Models.HOADON>
+
+@{
+    ViewBag.Title = "HoaDon";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<h2>Danh Sách Hóa Đơn</h2>
+
+
+<table>
+    <tr>
+        <th>
+            Mã Hóa Đơn
+        </th>
+        <th>
+            Mã Đặt Phòng
+        </th>
+        <th>
+            Mã Phòng
+        </th>
+        <th>
+            Mã Nhân Viên
+        </th>
+        <th>
+            Ngày Xuất 
+        </th>
+        <th>
+            Tổng Tiền
+        </th>
+        <th>
+            Trạng Thái
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MAHD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MADATPHONG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MAPHONG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MANV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGAYXUAT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TONGTIEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TRANGTHAI)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.MAHD }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.MAHD }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.MAHD })*@
+            </td>
+        </tr>
+    }
+
+</table>

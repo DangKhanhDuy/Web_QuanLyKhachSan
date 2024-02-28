@@ -1,0 +1,23 @@
+﻿@using QLKS.Models;
+
+@{ KHACHHANG kh = (KHACHHANG)Session["kh"]; }
+
+<div class="header-top-right d-flex justify-content-between">
+    @if (Session["kh"] != null)
+    {
+        <!-- Nếu người dùng đã đăng nhập -->
+        <a href="#">Hi, @kh.TENKH.ToString()</a>
+        <ul class="header__subnav list-unstyled d-flex">
+            <li class="header__subnav-item" style="color: white"><i class="ti-info-alt"></i>Thông tin</li>
+            <li class="header__subnav-item"><a href="@Url.Action("Logout", "Home")"><i class="ti-shift-right"></i>Đăng xuất</a></li>
+        </ul>
+    }
+    else
+    {
+        <!-- Nếu chưa đăng nhập -->
+        <ul class="header__subnav list-unstyled d-flex">
+            <li class="header__subnav-item"><a href="@Url.Action("DangNhap", "Home")" title="Đăng nhập">Đăng nhập</a></li>
+            <li class="header__subnav-item"><a href="@Url.Action("DangKy", "Home")" title="Đăng ký">Đăng ký</a></li>
+        </ul>
+    }
+</div>

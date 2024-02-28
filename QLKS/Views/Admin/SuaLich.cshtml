@@ -1,0 +1,37 @@
+﻿@model QLKS.Models.LICHLAMVIEC
+
+@{
+    ViewBag.Title = "SuaLich";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <div class="container">
+        <h2 style="font-weight: bold">Cập nhật lịch làm việc của nhân viên</h2>
+        <form action="/Admin/SuaLich" method="post">
+            @Html.HiddenFor(model => model.CALAM)
+            <table class="table table-striped">
+                    <tr>
+                        <th style="font-weight: bold;">Ngày làm</th>
+                        <td>
+                            
+                            @Html.ValidationMessageFor(model => model.NGAYLAM)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: bold;">Mã nhân viên</th>
+                        <td>
+                            @Html.EditorFor(model => model.MANV)
+                            @Html.ValidationMessageFor(model => model.MANV)
+                        </td>
+                    </tr>              
+            </table>
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </form>
+    </div>
+}

@@ -1,0 +1,57 @@
+﻿@model QLKS.Models.NHANVIEN
+
+@{
+    ViewBag.Title = "XoaNV";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <h2 style="font-weight: bold">Xác nhận thông tin cần xóa</h2>
+        <form action="/Admin/SuaNV" method="post">
+            @Html.HiddenFor(model => model.MANV)
+            <table class="table table-striped">
+                <tr>
+                    <th style="font-weight: bold;">Tên nhân viên</th>
+                    <td>
+                        @Html.DisplayFor(model => model.TENNV)
+                    </td>
+                </tr>
+                <tr>
+                    <th style="font-weight: bold;">SDT</th>
+                    <td>
+                        @Html.DisplayFor(model => model.SDT)
+                    </td>
+                </tr>
+                <tr>
+                    <th style="font-weight: bold;">Giới tính</th>
+                    <td>
+                        @Html.DisplayFor(model => model.GIOITINH)
+                    </td>
+                </tr>
+                <tr>
+                    <th style="font-weight: bold;">Email</th>
+                    <td>
+                        @Html.DisplayFor(model => model.EMAIL)
+                    </td>
+                </tr>
+                <tr>
+                    <th style="font-weight: bold;">CMND/CCCD</th>
+                    <td>
+                        @Html.DisplayFor(model => model.CCCD)
+                    </td>
+                <tr>
+                    <th style="font-weight: bold;">Tên đăng nhập</th>
+                    <td>
+                       @Html.DisplayFor(model => model.TENDN)
+                    </td>
+                </tr>
+            </table>
+            <p>
+                <input type="submit" value="Delete" />
+            </p>
+        </form>
+    </div>
+}

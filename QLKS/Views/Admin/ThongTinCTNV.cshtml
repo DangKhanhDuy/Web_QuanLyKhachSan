@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "ThongTinCTNV";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<TAIKHOAN> lstTK = ViewBag.taikhoan;
+    List<LICHLAMVIEC> lstLich = ViewBag.calam;
+}
+
+@using QLKS.Models
+@model NHANVIEN
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-2">
+            <img src="~/images/NhanVien/@Model.HINHANH" style="width:150px; height: 150px" />
+        </div>
+        <div class="col-5">
+            <p>Họ và tên: <span style="font-weight: bold">@Model.TENNV</span></p>
+            <p>Số điện thoại: <span style="font-weight: bold">@Model.SDT</span></p>
+            <p>Giới tính: <span style="font-weight: bold">@Model.GIOITINH</span></p>
+        </div>
+        <div class="col-5">
+            <p>Email: <span style="font-weight: bold">@Model.EMAIL</span></p>
+            <p>CCCD: <span style="font-weight: bold">@Model.CCCD</span></p>
+
+
+            @foreach (var item in lstTK)
+            {
+                <p>Chức vụ: <span style="font-weight: bold">@item.CHUCVU</span></p>
+            }
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <h3 style="color: red; font-weight: bold; font-size: 30px; text-align: center">Quản lý và tính lương nhân viên</h3>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Họ và tên</th>
+                    <th>Chức vụ</th>
+                    <th>Ca làm</th>
+                    <th>Tổng tiền</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                @foreach (var item in lstLich)
+                {
+                    <tr>
+                        <td>@Model.TENNV</td>
+                        <td>
+                            @foreach (var tk in lstTK)
+                            {
+                                <p><span style="font-weight: bold">@tk.CHUCVU</span></p>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NGAYLAM)
+                        </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TONGTIEN)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div >
+        <a class="btn btn-info text-light" href="~/Admin/QuanLyNV">Quay lại</a>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "XacNhanDonHang";
+    Layout = "~/Views/Shared/_LayoutSlider.cshtml";
+}
+
+@using QLKS.Models;
+@model List<GioHang>
+
+@using (Html.BeginForm("XacNhanDonHang", "Admin"))
+{
+    <div class="container" style="padding: 20px">
+
+        <h4 class="p-4">CÁM ƠN QUÝ KHÁCH ĐÃ ĐẶT PHÒNG CỦA CHÚNG TÔI</h4>
+
+        <div class="border p-4">
+
+            <div class="text-left pl-4">
+                @{
+                    DATPHONG dp = ((DATPHONG)Session["HoaDon"]);
+                }
+
+                <h5 class="pt-2">Mã hoá đơn: @dp.MADATPHONG</h5>
+                <h5 class="pt-2">Phương thức thanh toán: @Session["ThanhToan"]</h5>
+                <h5 class="pt-2">Ngày lập: @dp.MALOAI</h5>
+                <h5 class="pt-2">Ngày lập: @dp.SONGUOIO</h5>
+                <h5 class="pt-2">Ngày lập: @dp.THOIGIANDAT</h5>
+                <h5 class="pt-2">Ngày lập: @dp.THOIGIANTRA</h5>
+                <h5 class="pt-2">Ngày lập: @dp.SoNgayO</h5>
+                <h5 class="pt-2 border-bottom" style="width: 80%">Tổng thành tiên: @String.Format("{0:0}", @dp.ThanhTien) VNĐ </h5>
+                <h5 class="pt-2">Tiền cọc: @String.Format("{0:0,0}", ViewBag.tienCoc) VNĐ </h5>
+            </div>
+
+            <div class="p-3 pl-5">
+                <button type="submit" class="btn btn-danger btn-lg">
+                    XÁC NHẬN
+                </button>
+            </div>
+        </div>
+    </div>
+}

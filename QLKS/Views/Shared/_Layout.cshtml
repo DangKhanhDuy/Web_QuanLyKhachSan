@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title - SKY LINE HOTEL</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/bootstrap-5.3.1/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/bootstrap-5.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/theme/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/ionicons/css/ionicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/sky_files/owl.css">
+    <link rel="stylesheet" type="text/css" href="/sky_files/gallery.css">
+    <link rel="stylesheet" type="text/css" href="/sky_files/vit-gallery.css">
+    <link rel="shortcut icon" type="text/css" href="~/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/sky_files/bootstrap-select.css">
+    <link rel="stylesheet" type="text/css" href="/sky_files/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/sky_files/styles.css">
+    <script type="text/javascript" src="/sky_files/jquery-1.js"></script>
+    <script type="text/javascript" src="/sky_files/sky.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" crossorigin="anonymous" />
+
+
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header-sky">
+        <div class="container">
+            <!--HEADER-TOP-->
+            <div class="header-top ">
+                <div class="header-top-left">
+                    <span><i class="ion-android-cloud-outline"></i>21 °C</span>
+                    <span><i class="ion-ios-location-outline"></i> 121 D9, Tây Thạnh, Tân Phú</span>
+                    <span><i class="fa fa-phone" aria-hidden="true"></i> 090909090909</span>
+                </div>
+                <div class="header-top-right">
+                    @Html.Action("KhachHangNow", "Home")
+                </div>
+            </div>
+            <!-- END/HEADER-TOP -->
+        </div>
+        <!-- MENU-HEADER -->
+        <div class="menu-header">
+            <nav class="navbar navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header ">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar "></span>
+                            <span class="icon-bar "></span>
+                            <span class="icon-bar "></span>
+                        </button>
+                        <a class="navbar-brand" href="/" title="Skyline"><img src="/sky_files/sky-logo-header.png" alt="#"></a>
+                    </div>
+                    @*<div class="collapse navbar-collapse">
+                            @Html.Partial("_Menu")
+
+                        </div>*@
+                    <div class="nav navbar-nav">
+                        @Html.Partial("_Menu")
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- END / MENU-HEADER -->
+    </header>
+    <!-- END-HEADER -->
+    @RenderBody()
+    <!--FOOTER-->
+    <footer class="footer-sky">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+                        <div class="icon-email">
+                            <a href="#" title="Email"><img src="/sky_files/footer-top-icon-l.png" alt="Email" class="img-responsive"></a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-5">
+                        <div class="textbox">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="Your email address" aria-label="Search for..." type="email">
+                                        <button class="btn btn-secondary" type="button">
+                                            <i class="ion-android-send"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-6 text-right">
+                        <div class="footer-icon-l">
+                            <a href="#" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#" title="Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                            <a href="#" title="Tripadvisor"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
+                            <a href="#" title="Isnstagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /footer-top -->
+        <div class="footer-mid">
+            <div class="container">
+                <div class="row padding-footer-mid">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                        <div class="footer-logo text-center list-content">
+                            <a href="#" title="Skyline"><img src="/sky_files/sky-logo-footer.png" alt="Image"></a>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-lg-offset-1 col-md-offset-1  ">
+                        <div class="list-content">
+                            <ul>
+                                <li><a href="#" title="">11 D9, Tây Thạnh, Tân Phú, TPHCM</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-lg-offset-1 col-md-offset-1 ">
+                        <div class="list-content ">
+                            <ul>
+                                <li><a href="#" title="">Hotline: 0909090909</a></li>
+                                <li><a href="#" title="">Lễ tân: (0252) 3821 555</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-lg-offset-1 col-md-offset-1">
+                        <div class="list-content ">
+                            <ul>
+                                <li><a href="#" title="">Gmail: khachsan@gmail.com</a></li>
+                                <li><a href="#" title="">Facebook: Khách Sạn Tốt</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 no-padding">
+                        Copyright © 2017. <a href="#" title=""></a> SkyLine Hotel Theme crafted with love
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 no-padding">
+                        <div class="payments text-right">
+                            <ul>
+                                <li>
+                                    <a href="#" title="Paypal"><img src="/sky_files/Paypal.png" alt="Paypal"></a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Visa"><img src="/sky_files/Visa.png" alt="Visa"></a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Master"><img src="/sky_files/Master-card.png" alt="Master"></a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Discover"><img src="/sky_files/Discover.png" alt="Discover"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- END / FOOTER-->
+    <!--SCOLL TOP-->
+    <a href="#" title="sroll" class="scrollToTop" style="display: none;"><i class="fa fa-angle-up"></i></a>
+    <!--END / SROLL TOP-->
+    <!-- LOAD JQUERY -->
+    <script type="text/javascript" src="/sky_files/owl.js"></script>
+    <script type="text/javascript" src="/sky_files/bootstrap.js"></script>
+    <script type="text/javascript" src="/sky_files/vit-gallery.js"></script>
+    <script type="text/javascript" src="/sky_files/jquery_003.js"></script>
+    <script type="text/javascript" src="/sky_files/jquery_002.js"></script>
+    <script type="text/javascript" src="/sky_files/isotope.js"></script>
+    <script type="text/javascript" src="/sky_files/bootstrap-select.js"></script>
+    <script type="text/javascript" src="/sky_files/jquery.js"></script>
+    <script type="text/javascript" src="/sky_files/bootstrap-datepicker.js"></script>
+    <!-- Custom jQuery -->
+</body>
+</html>

@@ -1,0 +1,113 @@
+﻿@model IEnumerable<QLKS.Models.HOADON>
+
+@{
+    ViewBag.Title = "ListHoaDon";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<h2 style="text-align: center">Danh Sách Hóa Đơn</h2>
+
+<p>
+
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                MÃ hóa đơn
+            </th>
+            <th>
+                Mã đặt phòng
+            </th>
+            <th>
+                Mã phòng
+            </th>
+            <th>
+                Mã nhân viên
+            </th>
+            <th>
+                Ngày xuất
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @if (Model != null && Model.Any())
+    {
+        @* var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1; *@
+        var i = 1;
+        <tbody>
+            @foreach (var item in Model.Where(hd => hd.TRANGTHAI == "Chưa thanh toán"))
+            {
+            <tr>
+                <td>
+                    @i
+                </td>
+                <td>
+                    @item.MAHD
+                </td>
+                <td>
+                    @item.MADATPHONG
+                </td>
+                <td>
+                    @item.MAPHONG
+                </td>
+                <td>
+                    @item.MANV
+                </td>
+                <td>
+                    @item.NGAYXUAT
+                </td>
+                <td>
+                    @item.TONGTIEN
+                </td>
+                <td>
+                    @item.TRANGTHAI
+                </td>
+                <td>
+                    <a href="@Url.Action("DatDichVu", "Admin", new { MAHD = item.MAHD, MADATPHONG = item.MADATPHONG })" class="btn btn-sm btn-success">Đặt dịch vụ</a>
+                    <a href="@Url.Action("ThietHai", "Admin", new { MAHD = item.MAHD, MADATPHONG = item.MADATPHONG })" class="btn btn-sm btn-success">Thiệt hại</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("CTHoaDon", "Admin", new { MAHD = item.MAHD, MADATPHONG = item.MADATPHONG })" class="btn btn-sm btn-success">Tính Tiền</a>
+                    <a href="@Url.Action("CapNhatCTHoaDon", "Admin", new { MAHD = item.MAHD, MADATPHONG = item.MADATPHONG })" class="btn btn-sm btn-success">Cập Nhật Tính Tiền</a>
+                </td>
+                <td>
+                    <a href="~/Admin/XuatHoaDon/@item.MAHD" class="btn btn-sm btn-success">Xuất Hóa Đơn</a>
+                </td>
+            </tr>
+                i++;
+            }
+        </tbody>
+    }
+</table>
+<div>
+    @Html.ActionLink("Xem tất cả các hóa đơn", "HoaDon")
+</div>

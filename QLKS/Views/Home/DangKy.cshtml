@@ -1,0 +1,95 @@
+﻿@model QLKS.Models.ChuanHoaDangKy
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_LayoutSlider.cshtml";
+}
+
+@using (@Html.BeginForm("DangKy", "Home", FormMethod.Post, new { @class = "needs-validation", @novalidate = "true" }))
+{
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center">Đăng ký</h2>
+
+                        <div class="form-group">
+                            <label for="Name">Họ và tên</label>
+                            <input type="text" id="Name" name="txtName" class="form-control" placeholder="Nhập vào họ tên của bạn" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Email">Email</label>
+                            <input type="email" id="Email" name="Email" class="form-control" placeholder="Nhập vào tài khoản email của bạn" required>
+                            <small id="hasUser" style="color: red; font-size:1.4rem">@ViewBag.hasMail</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="UserName">Tên đăng nhập</label>
+                            <input type="text" id="UserName" name="UserName" class="form-control" placeholder="Nhập vào tên đăng nhập của bạn" required>
+                            <small id="hasUser" style="color: red; font-size:1.4rem">@ViewBag.hasUser</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Password">Mật khẩu</label>
+                            <input type="password" id="Password" name="Password" class="form-control" placeholder="Nhập vào mật khẩu của bạn" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ConfirmPassword">Xác nhận Mật khẩu</label>
+                            <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="Nhập lại mật khẩu của bạn" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PhoneNumber">Số điện thoại</label>
+                            <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" placeholder="Nhập vào số điện thoại của bạn" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Giới tính</label>
+                            <div class="form-check">
+                                <input type="radio" id="male" name="txtGioiTinh" value="male" class="form-check-input" required>
+                                <label for="male" class="form-check-label">Nam</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="female" name="txtGioiTinh" value="female" class="form-check-input" required>
+                                <label for="female" class="form-check-label">Nữ</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="NgaySinh">Ngày sinh</label>
+                            <input type="date" id="NgaySinh" name="txtNgaySinh" class="form-control" placeholder="Nhập ngày sinh của bạn" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="diachi">Địa chỉ</label>
+                            <input type="text" id="diachi" name="txtDiachi" class="form-control" placeholder="Nhập vào Địa chỉ của bạn" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cccd">Số căn cước công dân</label>
+                            <input type="text" id="cccd" name="txtCCCD" class="form-control" placeholder="Nhập vào số căn cước của bạn" required>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
+                        </div>
+                    </div>
+
+                    @*<div class="card-footer text-center">
+                        <p>Hoặc đăng nhập với</p>
+                        <div class="social-media">
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-google"></i>
+                            </a>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </section>
+}

@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title - SKY LINE HOTEL</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- MAIN STYLE -->
+    <link href="~/Content/base.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/bootstrap-5.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/bootstrap-5.3.1/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/css/StyleSheet1.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- navigation -->
+    <div class="navigation">
+        <ul>
+            <li>
+                <a href="@Url.Action("Index","Admin")">
+                    <span class="icon"><ion-icon name="home"></ion-icon></span>
+                    <span class="title" style="font-size: 20px">SKY LINE HOTEL</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Admin")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Trang Chủ</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "KhachHang")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Khách hàng</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("QLDichVu", "Admin")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Dịch vụ</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("ListPhong", "Admin")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Phòng</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("ListLoaiPhong", "Admin")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Loại phòng</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("NhanPhong", "Admin")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Nhận phòng</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("QuanLyThietBi", "Admin")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Thiết bị</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("QuanLyNV", "Admin")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Nhân viên</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("QuanLyLichLamViec", "Admin")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Lịch làm việc</span>
+                </a>
+            </li>       
+            <li>
+                <a href="@Url.Action("ListHoaDon", "Admin")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Hóa đơn</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("ThongKe", "Admin")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Thống kê</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Logout", "Home")">
+                    <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                    <span class="title">Đăng xuất</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- end navigation -->
+    <!-- main -->
+    <div class="main">
+        @RenderBody()
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js">
+    </script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    @*<script src="~/Content/js/JavaScript.js"></script>
+        <script src="~/Content/JavaScript.js"></script>*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿@model QLKS.Models.THIETBI
+
+@{
+    ViewBag.Title = "SuaThietBi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="container">
+        <h2 style="font-weight: bold">Cập nhật thiết bị phòng</h2>
+        <form action="/Admin/SuaThietBi" method="post">
+            @Html.HiddenFor(model => model.MATHIETBI)
+            <div class="row">
+                <div class="col">
+                    <label for="" style="font-weight: bold;">Tên thiết bị</label>
+                    @Html.EditorFor(model => model.TENTHIETBI)
+                    @Html.ValidationMessageFor(model => model.TENTHIETBI)
+                </div>
+                <div class="col">
+                    <label for="" style="font-weight: bold;">Đơn giá</label>
+                    @Html.EditorFor(model => model.DONGIA)
+                    @Html.ValidationMessageFor(model => model.DONGIA)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                </div>
+                <div class="col">
+                    <label for="" style="font-weight: bold;">Hình ảnh</label>
+                    @Html.EditorFor(model => model.HINHANH)
+                    @Html.ValidationMessageFor(model => model.HINHANH)
+                </div>
+            </div>
+            <div class="mt-3">
+                <p>
+                    <input type="submit" value="Cập nhật" />
+                </p>
+            </div>
+        </form>
+    </div>
+}

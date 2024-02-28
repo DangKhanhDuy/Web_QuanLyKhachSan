@@ -1,0 +1,137 @@
+﻿body {
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #fff;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+#combobox {
+    max-width: 150px; /* Đặt giá trị tùy chọn tùy thuộc vào chiều rộng bạn muốn */
+}
+
+/* Thiết lập định dạng cho các nhãn và trường nhập liệu */
+.editor-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 24px; /* Kích thước chữ lớn hơn */
+    text-align: center; /* Canh giữa */
+}
+
+.editor-field {
+    margin-bottom: 10px;
+    text-align: center; /* Canh giữa */
+}
+
+/* Thiết lập định dạng cho các ô nhập liệu */
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="number"] {
+    width: 250px;
+}
+
+/* Thiết lập định dạng cho nút Submit */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px; /* Kích thước nút lớn hơn */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Thiết lập định dạng cho liên kết */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.ngDungDanhGia {
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.5s;
+    /* điều khiển tốc độ của hiệu ứng ngay khi thay đổi các thuộc tính có trong CSS */
+}
+
+    .ngDungDanhGia img {
+        height: 230px;
+        width: 200px;
+        margin-top: 20px;
+        border-radius: 50%;
+    }
+
+    .ngDungDanhGia:hover {
+        transform: translateY(-10px);
+        /* chuyển đổi có thể xoay */
+    }
+
+.ngDungDanhGia {
+    font-size: 12px;
+    margin: 12px 0;
+    color: #777;
+}

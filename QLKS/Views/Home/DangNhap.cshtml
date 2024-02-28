@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "DangNhap";
+    Layout = "~/Views/Shared/_LayoutSlider.cshtml";
+}
+
+<input name="@ViewBag.success" id="user" value="@ViewBag.success" style="display:none">
+
+@using (@Html.BeginForm("DangNhap", "Home", FormMethod.Post, new { @class = "needs-validation", @novalidate = "true" }))
+{
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center">Đăng nhập</h2>
+
+                        @if (Session["ok"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @Session["ok"].ToString()
+                            </div>
+                            Session["ok"] = null;
+                        }
+
+                        <div class="form-group">
+                            <label for="email">Tên Đăng nhập</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" id="email" name="txtidUser" class="form-control" placeholder="Nhập vào tài khoản của bạn" required autofocus>
+                                <div class="invalid-feedback">Vui lòng nhập tên đăng nhập.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Mật khẩu</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="password" id="password" name="txtPass" class="form-control" placeholder="Nhập vào mật khẩu của bạn" required>
+                                <div class="invalid-feedback">Vui lòng nhập mật khẩu.</div>
+                            </div>
+                        </div>
+
+                        @if (Session["tb"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @Session["tb"].ToString()
+                            </div>
+                            Session["tb"] = null;
+                        }
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                        </div>
+
+                        <div class="form-group">
+                            <a href="#" class="form-element__link">Quên mật khẩu</a>
+                        </div>
+                    </div>
+
+                    <div class="card-footer text-center">
+                        <p>Bạn chưa có tài khoản?</p>
+                        <a href="@Url.Action("DangKy","Home")">Đăng ký tài khoản mới</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

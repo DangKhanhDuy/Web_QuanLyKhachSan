@@ -1,0 +1,143 @@
+﻿@{
+    ViewBag.Title = "XuatHoaDon";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model QLKS.Models.HOADON
+@Styles.Render("~/Content/Site.css")
+
+<style>
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col {
+        width: 50%;
+        box-sizing: border-box;
+    }
+
+    .center-text {
+        text-align: center;
+    }
+</style>
+
+<h2 style="text-align: center">Hóa Đơn Thanh Toán</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.MAHD)
+    <div class="row">
+        <div class="col">
+            <fieldset>
+                <legend></legend>
+                <div class="editor-label">
+                    <h4>Mã Hóa Đơn</h4>
+                </div>
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.MAHD)
+                    @Html.ValidationMessageFor(model => model.MAHD)
+                </div>
+                <div class="editor-label">
+                    <h4>Mã Đặt Phòng</h4>
+                </div>
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.MADATPHONG)
+                    @Html.ValidationMessageFor(model => model.MADATPHONG)
+                </div>
+
+                <div class="editor-label">
+                    <h4>Mã Phòng</h4>
+                </div>
+                <div class="editor-field">
+                    @Html.HiddenFor(model => model.MAPHONG)
+                    @Html.DisplayFor(model => model.MAPHONG)
+                    @Html.ValidationMessageFor(model => model.MAPHONG)
+                </div>
+
+                <div class="editor-label">
+                    <h4>Tên Khách Hàng</h4>
+                </div>
+                <div class="editor-field">
+                    @ViewBag.TenKhachHang
+                </div>
+                <div class="editor-label">
+                    <h4>Ngày Xuất</h4>
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.NGAYXUAT, new { @readonly = "readonly", @class = "center-text" })
+                    @Html.ValidationMessageFor(model => model.NGAYXUAT)
+                </div>
+            </fieldset>
+        </div>
+        <div class="col">
+            <fieldset>
+                <legend></legend>
+                <div class="editor-label">
+                    <h4>Giảm Giá</h4>
+                </div>
+                <div class="editor-field">
+                    @ViewBag.GIAMGIA  %
+                </div>
+
+                <div class="editor-label">
+                    <h4>Tổng Tiền Phòng</h4>
+                </div>
+                <div class="editor-field">
+                    @ViewBag.TONGTIENPHONG
+                </div>
+
+                <div class="editor-label">
+                    <h4>Phí Dịch Vụ</h4>
+                </div>
+                <div class="editor-field">
+                    @ViewBag.PHIDICHVU
+                </div>
+
+                <div class="editor-label">
+                    <h4>Phí Thiệt Hại</h4>
+                </div>
+                <div class="editor-field">
+                    @ViewBag.PHITHIETHAI
+                </div>
+                <div class="editor-label">
+                    <h4>Phụ Thu</h4>
+                </div>
+                <div class="editor-field">
+                    @ViewBag.PHUTHU
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <fieldset>
+        <legend></legend>
+        <div class="editor-label">
+            <h4>Tổng Tiền</h4>
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.TONGTIEN)
+            @Html.ValidationMessageFor(model => model.TONGTIEN)
+        </div>
+
+        <div class="editor-label">
+            <h4>Trạng Thái</h4>
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.TRANGTHAI, new { @readonly = "readonly", @class = "center-text" })
+            @Html.ValidationMessageFor(model => model.TRANGTHAI)
+        </div>
+
+        <p style="text-align: center">
+            <input type="submit" value="Xác Nhận Hóa Đơn" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "ListHoaDon")
+</div>

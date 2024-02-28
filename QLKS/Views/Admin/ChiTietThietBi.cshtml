@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "ChiTietThietBi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<THIETBI> dsPH = ViewBag.phong;
+}
+
+@using QLKS.Models
+@model CTTHIETBI
+
+<link href="~/bootstrap-5.3.1/css/bootstrap.css" rel="stylesheet" />
+<link href="~/bootstrap-5.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="~/bootstrap-5.3.1/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<!-- ===============   THÔNG TIN CHI TIẾT CỦA SẢN PHẨM  ============== -->
+<div class="container">
+    <h2 class="text-center" style="font-weight: bold">THÔNG TIN CHI TIẾT THIẾT BỊ HIỆN CÓ</h2>
+    <div class="row">
+        <div class="col-5">
+            <!-- mô tả chi tiết -->
+            <div class="row">
+                @foreach (var item in dsPH)
+                {
+                    <img src="~/images/ThietBi/@item.HINHANH" id="ProductImg" style="width: 460px; height: 460px;">
+                    break;
+                }
+                <!-- hình con -->
+                <div class="row mt-3">
+                    <div class="col p-1">
+                        @foreach (var item in dsPH)
+                        {
+                            <img src="~/images/ThietBi/@item.HINHANH" style="width: 80px; height: 80px" class="small-img">
+                            break;
+                        }
+                    </div>
+                    <div class="col p-1">
+                        <img src="~/images/ThietBi/aochoangmini.jpg" style="width: 80px; height: 80px" class="small-img">
+                    </div>
+                    <div class="col p-1">
+                        <img src="~/images/ThietBi/bantronmini.jpg" style="width: 80px; height: 80px" class="small-img">
+                    </div>
+                    <div class="col p-1">
+                        <img src="~/images/ThietBi/hoamini.jpg" style="width: 80px; height: 80px" class="small-img">
+                    </div>
+                    <div class="col p-1">
+                        <img src="~/images/ThietBi/cocmini.jpg" style="width: 80px; height: 80px" class="small-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- thông tin thiết bị -->
+        <div class="col-7">
+            @foreach (var item in dsPH)
+            {
+                <p style="font-weight: bold; font-size: x-large">Tên thiết bị: <span class="text-dark">@item.TENTHIETBI</span></p>
+                <p style="font-weight: bold; font-size: large">Đơn giá: <span class="text-dark">@item.DONGIA VND</span></p>
+            }
+            <p style="font-weight: bold; font-size: large">Số lượng: @Model.SOLUONG</p>
+            <p style="font-weight: bold; font-size: large">Mã phòng: @Model.MAPHONG</p>
+
+            <!-- Hướng dẫn sử dụng -->
+            <div class="row mt-3">
+                <h3>Hướng dẫn sử dụng</h3>
+                <p style="font-size: large">
+                    - Làm theo chỉ dẫn của lễ tân hoặc người phụ trách. <br>
+                    - Tránh làm hư hại vật dụng. <br>
+                    - Sử dụng khăn sạch, nếu có vấn đề, báo ngay cho lễ tân. <br>
+                    - Không cho vật dụng lạ vào toilet. <br>
+                    - Tránh để trẻ nhỏ đến gàn khu vực có điện.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =======================    JS         =========================== -->
+<script>
+    var ProductImg = document.getElementById("ProductImg");
+    var SmallImg = document.getElementsByClassName("small-img");
+
+    SmallImg[0].onclick = function () {
+        ProductImg.src = SmallImg[0].src;
+    }
+    SmallImg[1].onclick = function () {
+        ProductImg.src = SmallImg[1].src;
+    }
+    SmallImg[2].onclick = function () {
+        ProductImg.src = SmallImg[2].src;
+    }
+    SmallImg[3].onclick = function () {
+        ProductImg.src = SmallImg[3].src;
+    }
+    SmallImg[4].onclick = function () {
+        ProductImg.src = SmallImg[4].src;
+    }
+</script>

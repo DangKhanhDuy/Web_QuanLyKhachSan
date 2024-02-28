@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "_LayoutSlider";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- SLIDER -->
+<section class="section-slider height-v">
+    <div id="index12" class="owl-carousel  owl-theme">
+        <div class="item">
+            <img alt="Third slide" src="/sky_files/Slider-v1.jpg" class="img-responsive">
+            <div class="carousel-caption">
+                <h1>Welcome to Skyline</h1>
+                <p><span class="line-t"></span>Hotels & Resorts <span class="line-b"></span></p>
+            </div>
+        </div>
+        <div class="item">
+            <img alt="Third slide" src="/sky_files/Slider-v2.jpg" class="img-responsive">
+            <div class="container">
+                <div class="carousel-caption ">
+                    <h1 class="v2">Enjoy a Luxury  Experience</h1>
+                    <p class="p-v2"><span class="line-t"></span>Hotels & Resorts <span class="line-b"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm("Index", "Reservation"))
+    {
+        <div class="check-avail">
+            <div class="container">
+                <div class="arrival date-title ">
+                    <label>NGÀY ĐẾN </label>
+                    <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                        @Html.TextBox("TuNgay")
+                        <span class="input-group-addon"><img src="/sky_files/date-icon.png" alt="#"></span>
+                    </div>
+                </div>
+                <div class="departure date-title ">
+                    <label>NGÀY ĐI </label>
+                    <div id="datepickeri" class="input-group date" data-date-format="dd-mm-yyyy">
+                        @Html.TextBox("DenNgay")
+                        <span class="input-group-addon"><img src="/sky_files/date-icon.png" alt="#"></span>
+                    </div>
+                </div>
+                <div class="adults date-title ">
+                    <label>
+                        SỐ NGƯỜI
+                        <span class="carousel-search">
+                            @Html.TextBox("SoNguoi", "", new { type = "number", style = " text-align: center; width: 90px" })
+                        </span>
+                        @*<div class="carousel-search">
+                                @Html.TextBox("SoNguoi", "", new { type = "number", style = " text-align: center; width: 90px" })
+                            </div>*@
+                    </label>
+                </div>
+                <div class="find_btn date-title">
+                    <input class="text-find" style="width: 100%; height: 100%; border: none; padding: 0; color: #8E7037; background: white" value="Dặt phòng">
+                </div>
+            </div>
+        </div>
+    }
+</section>
+<!-- END / SLIDER -->
+<div>
+    @RenderBody()
+</div>

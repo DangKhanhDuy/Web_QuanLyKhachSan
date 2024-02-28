@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "QLDichVu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<QLKS.Models.DICHVU>
+
+<div class="container">
+    <div class="topbar">
+        <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+        </div>
+        <!-- tim kiem -->
+        <form action="~/Admin/QLDichVu" class="search" method="post">
+            <label>
+                <input type="text" name="timkiem" placeholder="Nhập tên dịch vụ">
+                <ion-icon name="search-outline"></ion-icon>
+            </label>
+        </form>
+        <!-- Nút thêm -->
+        <a href="@Url.Action("ThemDV","Admin")" role="button" class="btn btn-primary">
+            <i class="add-outline"></i> Thêm Dịch vụ
+        </a>
+    </div>
+
+    <div class="details" style="display:inline-block; font-size:13px;">
+        <div class="recentOrders">
+            <div class="card-header">
+                <h2>Danh sách Tài Khoản</h2>
+            </div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Mã dịch vụ</th>
+                        <th scope="col">Tên dịch vụ</th>
+                        <th scope="col">Đơn giá</th>
+                        <th scope="col">Mô tả</th>
+                        <th scope="col" colspan="2" class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.MADV)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TENDICHVU)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DONGIA)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MOTA)</td>
+
+                            <td>
+                                <a href="@Url.Action("XoaDV","Admin",new {@id = item.MADV })" role="button" class="btn btn-primary">
+                                    <i class="del"></i> Xóa
+                                </a>
+                                <a href="@Url.Action("SuaDichVu","Admin",new {@id = item.MADV })" role="button" class="btn btn-primary">
+                                    <i class="del"></i> Sửa
+                                </a>
+                            </td>
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align:center;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", "Admin", new { page }))
+        </div>
+    </div>
+</div>
+

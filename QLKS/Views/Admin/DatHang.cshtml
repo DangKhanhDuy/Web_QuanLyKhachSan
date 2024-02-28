@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "DatHang";
+    Layout = "~/Views/Shared/_LayoutSlider.cshtml";
+    double? ttt = ViewBag.TongThanhTien;
+    double? tc = ViewBag.TienCoc;
+}
+
+@using QLKS.Models;
+@model List<GioHang>
+<div class="container" style="padding-top: 6%">
+    @using (Html.BeginForm("DatHang", "Admin"))
+    {
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                @{
+                    KHACHHANG kh = (KHACHHANG)Session["kh"];
+                }
+
+                <h4 class="text-danger font-weight-bold" style="font-size: 1.5rem;">CHI TIẾT ĐƠN ĐẶT PHÒNG</h4>
+                <div class="row mt-4">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="txtTenNguoiO">Người ở <span class="text-danger">*</span></label>
+                            <input type="text" id="txtTenNguoiO" class="form-control" value="@kh.TENKH" readonly />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="txtCCCD">CCCD <span class="text-danger">*</span></label>
+                            <input type="text" id="txtCCCD" name="txtCCCD" class="form-control" value="@kh.CCCD" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="txtSDT">Số Điện Thoại <span class="text-danger">*</span></label>
+                            <input type="text" id="txtSDT" name="txtSDT" class="form-control" value="@kh.SDT" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="txtEmail">Email <span class="text-danger">*</span></label>
+                            <input type="text" id="txtEmail" class="form-control" value="@kh.EMAIL" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="txtNgayTra">Ngày trả <span class="text-danger">*</span></label>
+                            <input type="date" id="txtNgayTra" name="txtNgayTra" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="txtSoNguoiO">Số người ở <span class="text-danger">*</span></label>
+                            <input type="number" id="txtSoNguoiO" name="txtSoNguoiO" class="form-control" />
+                            <span id="errorSoNguoiO" style="color: red;"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="dathang__form">
+                            <a href="#" class="btn btn-danger" style="font-size: 1.4rem;">
+                                <i class="fas fa-long-arrow-alt-left" style="padding-right: 4px;"></i>
+                                Thay đổi thông tin người ở
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12">
+                <div class="checkout__order">
+                    <h5 class="font-weight-bold">GIỎ HÀNG</h5>
+                    <div class="checkout__order__product">
+                        <ul>
+                            <li>
+                                <span class="top__text">Phòng</span>
+                                <span class="top__text__right">Giá</span>
+                            </li>
+                            @{
+                                int num = 1;
+                                foreach (var c in Model)
+                                {
+                                    <li>@num. @c.maLoaiPhong (SL: @c.soLuong) <span>@string.Format("{0:#,##0} VND", c.thanhTien)</span></li>
+                                    num++;
+                                }
+                            }
+                            @*<li style="border-top: 1px solid #ccc">Tổng Tiền <span>@string.Format("{0:#,##0} VND", ttt)</span></li>*@
+                        </ul>
+                    </div>
+
+                    <div class="checkout__order__total">
+                        <ul>
+                            <li name="txtThanhTien" value="@ttt">Tổng Tiền <span>@string.Format("{0:#,##0} VNĐ", ttt)</span></li>
+                            <li>Tiền Cọc<span>@string.Format("{0:#,##0} VNĐ", tc)</span></li>
+                        </ul>
+                    </div>
+                    <p>Vui lòng thanh toán tiền cọc phòng khi đặt phòng</p>
+                    <div class="checkout__pttt">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="phuongthucthanhtoan" id="test-1" checked="checked" value="NH">
+                            <label class="form-check-label" for="test-1">
+                                Thanh toán ngân hàng
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="phuongthucthanhtoan" id="test-2" value="PP">
+                            <label class="form-check-label" for="test-2">
+                                Thanh toán qua Paypal
+                            </label>
+                        </div>
+                        <div id="content-test-1" class="content content-test-1">
+                            <div class="btn__check">
+                                <button type="submit" class="btn btn-danger" style="padding: 8px 80px; width: 100%;">ĐẶT PHÒNG NGAY</button>
+                            </div>
+                        </div>
+                        <div id="content-test-2" class="content content-test-2">
+                            <form id="myForm">
+                                <div id="paypal-button-container"></div>
+                                <button id="next" type="submit" style="display:none"></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script src="https://www.paypal.com/sdk/js?client-id=ARpOHO03Xa-RGEJj6chMazG2rAbc7uQf03X9h7hbnuyD37oSN2wj_VK0imfZ_qNzX0KaeBnD4TDdRrHg">
+</script>
+<script>
+                paypal.Buttons({
+                                    createOrder: function (data, actions) {
+                                            // This function sets up the details of the transaction, including the amount and line item details.
+                                            return actions.order.create({
+                                            purchase_units: [{
+                                                amount: {
+                                                    value: '@ViewBag.tongThanhTien'
+                                                }
+                                                }]
+                        });
+                                        },
+                    onApprove: function (data, actions) {
+                                            // This function captures the funds from the transaction.
+                                            return actions.order.capture().then(function (details) {
+                                                // This function shows a transaction success message to your buyer.
+
+                                                alert('Thanh toán thành công ' + details.payer.name.given_name);
+                                                document.getElementById("next").click();
+                                            });
+                                        }
+                                    }).render('#paypal-button-container');
+                                    //This function displays Smart Payment Buttons on your web page.
+</script>

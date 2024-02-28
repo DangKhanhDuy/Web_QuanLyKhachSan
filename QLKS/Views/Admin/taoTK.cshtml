@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "taoTK";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <form action="/Admin/taoTK" method="post">
+        <div class="row">
+            <div class="col">
+                <label for="" style="font-weight: bold;">Tên đăng nhập</label>
+                <input type="text" name="TENDN" class="form-control" />
+            </div>
+            <div class="col">
+                <label for="" style="font-weight: bold;">Mật khẩu</label>
+                <input type="password" name="MATKHAU" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="font-weight: bold;">
+                <label for="" style="font-weight: bold;">Chức vụ</label>
+                <input type="text" name="CHUCVU" class="form-control">
+            </div>         
+        </div>
+        <div class="mt-3">
+            <p>
+                <input type="submit" value="Tạo tài khoản" />
+            </p>
+        </div>
+    </form>
+</div>

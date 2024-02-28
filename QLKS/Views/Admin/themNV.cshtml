@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "themNV";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <form action="/Admin/themNV" method="post">
+        <div class="row">
+            <div class="col">
+                <label for="" style="font-weight: bold;">Mã nhân viên</label>
+                <input type="text" name="MANV" class="form-control" />
+            </div>
+            <div class="col">
+                <label for="" style="font-weight: bold;">Giới tính</label>
+                <input type="text" name="GIOITINH" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="font-weight: bold;">
+                <label for="" style="font-weight: bold;">Tên nhân viên</label>
+                <input type="text" name="TENNV" class="form-control">
+            </div>
+            <div class="col">
+                <label for="" style="font-weight: bold;">Email</label>
+                <input type="text" name="EMAIL" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="" style="font-weight: bold;">SDT</label>
+                <input type="number" name="SDT" class="form-control">
+            </div>
+            <div class="col">
+                <label for="" style="font-weight: bold;">CMND/CCCD</label>
+                <input type="number" name="CCCD" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="" style="font-weight: bold;">Tên đăng nhập</label>
+                <input type="text" name="TENDN" class="form-control">
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="mt-3">
+            <p>
+                <input type="submit" value="Thêm" />
+            </p>
+        </div>
+    </form>
+</div>

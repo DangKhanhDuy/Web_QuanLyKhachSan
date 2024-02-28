@@ -1,0 +1,73 @@
+﻿@model QLKS.Models.LOAIPHONG
+
+@{
+    ViewBag.Title = "SuaLoaiPhong";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        $('#avatar').change(function () {
+            var fileName = $(this).val().split('\\').pop(); // Lấy tên file từ đường dẫn
+            $('#HINHANH').val(fileName);
+        });
+    });
+</script>
+
+@Styles.Render("~/Content/Site.css")
+
+<h2 style="text-align: center">Sửa Loại Phòng</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend></legend>
+
+        <div class="editor-label">
+            <h4>Mã Loại</h4>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MALOAI)
+            @Html.ValidationMessageFor(model => model.MALOAI)
+        </div>
+
+        <div class="editor-label">
+            <h4>Đơn Giá</h4>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DONGIA)
+            @Html.ValidationMessageFor(model => model.DONGIA)
+        </div>
+
+        <div class="editor-label">
+            <h4>Số Người Ở</h4>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SONGUOIMAX)
+            @Html.ValidationMessageFor(model => model.SONGUOIMAX)
+        </div>
+
+        <div class="editor-label">
+            <h4>Hình Ảnh</h4>
+        </div>
+        <div class="editor-field">
+            <!-- Hiển thị trường nhập file -->
+            <label for="avatar" style="display: block; width: 100%; text-align: center;">
+                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" style="display: inline-block;">
+                <!-- Thêm một input ẩn để giữ giá trị của trường HINHANH -->
+                <input type="hidden" id="HINHANH" name="HINHANH" />
+            </label>
+            <!-- Hiển thị tên file -->
+            @Html.ValidationMessageFor(model => model.HINHANH)
+        </div>
+
+        <p style="text-align: center">
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "ListLoaiPhong")
+</div>

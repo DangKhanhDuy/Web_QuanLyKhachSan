@@ -1,0 +1,34 @@
+﻿@model QLKS.Models.LICHLAMVIEC
+
+@{
+    ViewBag.Title = "XoaLich";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <h2 style="font-weight: bold">Xác nhận thông tin cần xóa</h2>
+        <form action="/Admin/XoaLich" method="post">
+            @Html.HiddenFor(model => model.CALAM)
+            <table class="table table-striped">
+                <tr style="font-weight: bold;">
+                    <th>Ngày làm</th>
+                    <th>Mã nhân viên</th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.NGAYLAM)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.MANV)
+                    </td>
+                </tr>
+            </table>
+            <p>
+                <input type="submit" value="Delete" />
+            </p>
+        </form>
+    </div>
+}

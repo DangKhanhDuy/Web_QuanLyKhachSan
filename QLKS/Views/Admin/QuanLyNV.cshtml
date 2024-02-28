@@ -1,0 +1,79 @@
+﻿@model IEnumerable<QLKS.Models.NHANVIEN>
+
+@{
+    ViewBag.Title = "QuanLyNV";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; 
+}
+@using QLKS.Models
+
+<div class="container">
+    <h2 class="text-dark text-center">QUẢN LÝ NHÂN VIÊN</h2>
+    <div class="row">
+        <div class="col-4">
+            <form action="~/Admin/QuanLyNV" class="search" method="post">
+                <label>
+                    <input type="search" class="form-control" name="search" aria-label="Search" aria-describedby="search-addon" placeholder="Tìm kiếm ...">
+                </label>
+            </form>
+        </div>
+        <div class="col-6">
+
+        </div>
+        <div class="col-2 text-center">
+            <a class="btn btn-info mb-2" href="/Admin/taoTK">Thêm mới nhân viên</a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Hình ảnh</th>
+                <th>Họ và tên</th>
+                <th>Số điện thoại</th>
+                <th>Giới tính</th>
+                <th>Email</th>
+                <th>CCCD</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a class="btn" href="/Admin/ThongTinCTNV/@item.MANV">
+                            <img src="~/images/NhanVien/@item.HINHANH" style="width:70px; height: 70px" />
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TENNV)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SDT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GIOITINH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EMAIL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CCCD)
+                    </td>
+                    <td>
+                        <span>
+                            <a class="btn" href="/Admin/SuaNV/@item.MANV" style="background-color: red; border-radius: 100%">
+                                <i class="fa-solid fa-pencil fa-beat" title="Sửa" style="color: #919b03; padding: 8px 2px"></i>
+                            </a>
+                        </span>
+                        <span>
+                            <a class="btn" href="/Admin/XoaNV/@item.MANV" style="background-color: orange; border-radius: 100%">
+                                <i class="fa-solid fa-trash-can fa-shake" style="color: yellow; padding: 8px 2px"></i>
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
